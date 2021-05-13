@@ -1,0 +1,7 @@
+{
+    "navigationStyle": "custom",
+    "usingComponents": {
+        "i-auth": "../../components/new-auth/index",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

@@ -1,0 +1,96 @@
+<i-auth bind:authSuccess="authSuccess" needAuth="{{needAuth}}">
+	<view>
+		<view class="container {{isIpx?'pb80':''}}">
+			<block wx:if="{{order.length}}" >
+				<view>
+					<block wx:for="{{order}}" wx:key="{{index}}" wx:for-item="item" wx:for-index="index" >
+						<view class="order-item">
+							<view class="order-title">
+								<label class="check-box-content">
+									<checkbox-group bindchange="checkboxChange" data-index="{{index}}" data-type="order">
+										<view class="check-box">
+											<block wx:if="{{item.checked}}" >
+												<image class="checkbox-checked" src="../../images/checkbox-checked.png"></image>
+											</block>
+											<block wx:else>
+												<image class="checkbox-disabled" src="../../images/checkbox-disabled.png"></image>
+											</block>
+											<checkbox hidden checked="{{item.checked}}" value="{{index}}"></checkbox>
+										</view>
+									</checkbox-group>
+								</label>
+								<view class="order-msg">
+									<span>订单编号：{{item.order_num_alias}}</span>
+									<em>{{item.createTime}}</em>
+								</view>
+								<view class="order-status">{{item.status_name}}</view>
+							</view>
+							<checkbox-group bindchange="checkboxChange" data-index="{{index}}" data-type="goods">
+								<block wx:for="{{item.goods_list}}" wx:key="{{idx}}" wx:for-item="skuItem" wx:for-index="idx" >
+									<view class="goods-item">
+										<label class="check-box-content">
+											<view class="check-box">
+												<checkbox hidden checked="{{skuItem.checked}}" value="{{idx}}"></checkbox>
+											</view>
+										</label>
+										<view class="goods-img">
+											<component-img defaultImage="../../images/placeholder-refund.png" height="60" loadImage="{{skuItem.goods_images}}" width="60"></component-img>
+										</view>
+										<view class="goods-detail">
+											<view class="goods-title">{{skuItem.name}}</view>
+											<view class="goods-desc">
+												<block wx:if="{{skuItem.option_str}}">
+													<text>{{skuItem.option_str}};</text>
+												</block>共{{skuItem.quantity}}件											</view>
+										</view>
+										<block wx:if="{{skuItem.orderSkuStatus===-1}}" >
+											<view class="goods-sign-btn goods-sign-btn-disabled" style="display:none;">提货确认</view>
+										</block>
+										<block wx:elif="{{skuItem.orderSkuStatus===0}}">
+											<label class="goods-sign-btn">提货确认<button hidden bindtap="sign" data-idx="{{index}},{{idx}}" data-orderNo="{{item.orderNo}}" data-orderSkuId="{{skuItem.orderSkuId}}"></button>
+											</label>
+										</block>
+										<block wx:elif="{{skuItem.orderSkuStatus===1||skuItem.orderSkuStatus===2}}">
+											<view class="goods-sign-btn goods-sign-btn-disabled">已签</view>
+										</block>
+									</view>
+								</block>
+							</checkbox-group>
+						</view>
+					</block>
+				</view>
+			</block>
+			<block wx:else>
+				<view class="no-list">暂无数据</view>
+			</block>
+		</view>
+		<block wx:if="{{order.length}}">
+			<view class="bottom-bar {{isIpx?'pb20':''}}">
+				<label class="check-box-content">
+					<checkbox-group bindchange="checkboxChange" data-type="all">
+						<view class="check-box">
+							<block wx:if="{{checkedAll&&order.length>0}}" >								<image class="checkbox-checked" src="../../images/checkbox-checked.png"></image>
+							</block>
+							<block wx:else>
+								<image class="checkbox-disabled" src="../../images/checkbox-disabled.png"></image>
+							</block>
+							<checkbox hidden checked="{{checkedAll&&order.length>0}}" value="{{index}}"></checkbox>
+						</view>
+					</checkbox-group>全选				</label>
+				<view class="flex">
+					<view class="total">合计：<span>{{checkedCount}}条</span>
+					</view>
+					<label class="btn" style="display:none;">复制商品信息<button hidden bindtap="copyGoodsMsg"></button>
+					</label>
+					<block wx:if="{{checkedCount>0}}" >						<label class="btn">确认签收<button hidden bindtap="signAll"></button>
+						</label>
+					</block>
+					<block wx:else>
+						<view class="btn btn-disabled">确认签收</view>
+					</block>
+				</view>
+			</view>
+		</block>
+		<i-aside-btn showHome="true"></i-aside-btn>
+	</view>
+</i-auth>

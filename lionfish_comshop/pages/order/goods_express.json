@@ -1,0 +1,8 @@
+{
+    "navigationBarBackgroundColor": "#FFF",
+    "navigationBarTitleText": "查看物流",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

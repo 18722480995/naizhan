@@ -1,0 +1,21 @@
+
+<view class="cart-btn i-class">
+	<block wx:if="{{showShare}}">
+		<button class="icon btn" openType="share">
+			<text class="iconfont icon-fenxiang"></text>
+			<view class="name">分享</view>
+		</button>
+	</block>
+	<block wx:if="{{showContact}}">
+		<button class="icon btn" openType="contact">
+			<text class="iconfont icon-kefu"></text>
+			<view class="name">客服</view>
+		</button>
+	</block>
+	<block wx:if="{{showHome}}">
+		<view bindtap="goLink" class="icon none-btn" data-link="/lionfish_comshop/pages/index/index">
+			<text class="iconfont icon-shouye"></text>
+			<view class="name">首页</view>
+		</view>
+	</block>
+</view>

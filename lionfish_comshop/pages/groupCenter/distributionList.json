@@ -1,0 +1,11 @@
+{
+    "navigationBarBackgroundColor": "#FFF",
+    "navigationBarTitleText": "分销记录",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+        "component-load-more": "../../components/load-more/index",
+        "component-distribution-item": "../../components/distributionItem/index",
+        "i-dialog": "../../components/dialog/index",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

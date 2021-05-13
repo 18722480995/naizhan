@@ -1,0 +1,185 @@
+
+<view>
+	<view class="goodsInfo">
+		<i-img class="goodsImg" defaultImage="../../images/placeholder-refund.png" height="90" iClass="img-class" loadImage="{{goods.one_image}}" width="90"></i-img>
+		<view class="goodsDetail">
+			<view class="detailTop">
+				<view class="detailTopInfo">
+					<view class="goodsName">{{goods.goodsname}}</view>
+					<block wx:if="{{goods.one_limit_count>0||goods.total_limit_count>0}}">						<view class="purchasing">
+							<block wx:if="{{goods.total_limit_count>0}}">								<text>每人限购{{goods.total_limit_count}}份</text>
+							</block>
+							<block wx:if="{{goods.one_limit_count>0}}">								<text>每单限购{{goods.one_limit_count}}份</text>
+							</block>
+						</view>
+					</block>
+					<view class="saleNum">已售{{goods.seller_count}}份，剩余{{goods.total}}份</view>
+				</view>
+				<button class="shareBtn" hoverClass="none" openType="share">
+					<image class="shareImg" src="../../images/shareImg.png"></image>
+				</button>
+			</view>
+			<view class="detailBottom">
+				<view class="price">￥<text class="salePrice">{{goods.price_front}}</text>.{{goods.price_after}}				</view>
+				<view class="time">
+					<block wx:if="{{goods.over_type==1}}">
+						<text>距结束</text>
+					</block>
+					<block wx:if="{{goods.over_type==0}}">
+						<text class="endAct">距开始</text>
+					</block>
+					<block wx:if="{{goods.over_type==2}}">
+						<text class="endAct">结束时间</text>
+					</block>
+					<block wx:if="{{goods.over_type==2}}" >
+						<text class="endAct">{{goods.end_date}}</text>
+					</block>
+					<block wx:else>
+						<view class="countdown-class i-count-down">
+							<block wx:if="{{endtime.days>0}}">								<em>{{endtime.days}}天</em>
+							</block>
+							<span class="item-class">{{endtime.hours}}</span>:<span class="item-class">{{endtime.minutes}}</span>:<span class="item-class">{{endtime.seconds}}</span>
+						</view>
+					</block>
+				</view>
+			</view>
+		</view>
+	</view>
+	<block wx:if="{{rushList.length===0}}">
+		<view class="noBuyList" style="height:{{containerHeight}}px">
+			<view class="noBuyListCon">
+				<image class="noBuyListImg" src="../../images/noData.png"></image>
+				<view class="noBuyListTit">还没有人购买哦</view>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{rushList.length>0}}">		<view class="buyRecords">
+			<view class="buyListCon">
+				<i-card>
+					<view class="buyList" slot="content">
+						<block wx:for="{{rushList}}" wx:key="key" wx:for-item="item" wx:for-index="index" >
+							<view class="buyListInfo">
+								<i-img data-index="{{index}}" defaultImage="../../images/head-bitmap.png" height="36" iClass="userImg" imgType="5" loadImage="{{item.avatar}}" width="36"></i-img>
+								<view class="userName">{{item.username}}</view>
+								<view class="buyNum">买了<text>{{item.quantity}}</text>份								</view>
+								<view class="buyTime">{{item.pay_time}}</view>
+							</view>
+						</block>
+					</view>
+				</i-card>
+				<block wx:if="{{loadMore}}">
+					<i-load-more iClass="loadMore" loading="{{loadMore}}" tip="{{loadText}}"></i-load-more>
+				</block>
+			</view>
+		</view>
+	</block>
+	<view class="i-fixed-bottom">
+		<view class="goods-bottom-bar">
+			<view class="leftBtn">
+				<navigator hoverClass="none" openType="switchTab" url="/lionfish_comshop/pages/index/index">
+					<view class="bar-item back-to-index">
+						<image class="icon" src="{{iconArr.home}}"></image>回首页					</view>
+				</navigator>
+				<navigator hoverClass="none" openType="switchTab" url="/lionfish_comshop/pages/order/shopCart">
+					<view class="bar-item shop-cart">
+						<view class="icon">
+							<image src="{{iconArr.car}}"></image>
+							<block wx:if="{{cartNum}}">
+								<view class="cart-num">{{cartNum}}</view>
+							</block>
+						</view>购物车					</view>
+				</navigator>
+			</view>
+			<block wx:if="{{goods.total<=0}}" >
+				<view class="goodsStatus">已抢光</view>
+			</block>
+			<block wx:elif="{{goods.total>0&&goods.over_type==2}}">				<view class="goodsStatus">团购已结束</view>
+			</block>
+			<block wx:elif="{{goods.grounding!=1}}">
+				<view class="goodsStatus">已下架</view>
+			</block>
+			<block wx:elif="{{goods.over_type==0}}">
+				<view class="goodsStatus">即将开抢</view>
+			</block>
+			<block wx:elif="{{is_comunity_rest==1}}">
+				<view class="goodsStatus">团长休息中</view>
+			</block>
+			<block wx:else>
+				<view class="gobuy">
+					<form bindsubmit="addToCart" reportSubmit="true">
+						<view class="bar-item add-to-cart" style="background: {{goodsdetails_addcart_bg_color}}">加入购物车</view>
+						<button class="btn" formType="submit"></button>
+					</form>
+					<form bindsubmit="submit" reportSubmit="true">
+						<button hidden formType="submit" id="formId"></button>
+					</form>
+					<label class="balanceBtn" for="formId">
+						<view bindtap="balance" class="bar-item balance" style="background: {{goodsdetails_buy_bg_color}}">立即购买</view>
+					</label>
+				</view>
+			</block>
+		</view>
+	</view>
+	<view bindtap="closeSku" class="mask" hidden="{{!visible}}"></view>
+	<view bind:cancel="close" class="sku-content" hidden="{{!visible}}" scrollUp="true">
+		<view class="sku-card">
+			<view bindtap="closeSku" class="close">
+				<image src="../../images/icon-sku-close.png"></image>
+			</view>
+			<view class="sku-header">
+				<image class="sku-img" src="{{cur_sku_arr.skuImage}}" style="width:80px;height:80px;"></image>
+				<view class="sku-desc">
+					<view class="sku-title">
+						<span>{{cur_sku_arr.spuName}}</span>
+					</view>
+					<view class="sku-price">
+						<view class="sale-price">¥<span>{{cur_sku_arr.actPrice[0]}}</span>.{{cur_sku_arr.actPrice[1]}}						</view>
+						<view class="market-price">¥{{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}</view>
+					</view>
+					<block wx:if="{{cur_sku_arr.spec}}">
+						<view class="sku-switch-on">已选择：{{cur_sku_arr.spec}}</view>
+					</block>
+				</view>
+			</view>
+			<block wx:for="{{skuList.list}}" wx:key="{{index}}" wx:for-item="item" wx:for-index="index" >
+				<view class="sku-spec">
+					<view class="title">{{item.name}}</view>
+					<view class="spec-list">
+						<block wx:for="{{item.option_value}}" wx:for-item="value" wx:for-index="idx" >
+							<span bindtap="selectSku" class="{{idx==sku[index].idx?'on':''}}" data-disabled="{{item.canBuyNum-value<0}}" data-idx="{{idx}}" data-type="{{index}}_{{idx}}_{{value.option_value_id}}_{{value.name}}">{{value.name}}</span>
+						</block>
+					</view>
+				</view>
+			</block>
+			<view class="sku-num-content">
+				<view class="title">数量</view>
+				<view class="i-class i-input-number i-input-number-size-{{size}}">
+					<view bindtap="setNum" class="i-input-number-minus {{value<=min?'i-input-number-disabled':''}}" data-type="decrease">
+						<image src="../../images/icon-input-reduce.png"></image>
+					</view>
+					<input bindblur="handleBlur" bindfocus="handleFocus" class="i-input-number-text {{min>=max?'i-input-number-disabled':''}}" disabled="true" type="number" value="{{sku_val}}"></input>
+					<view bindtap="setNum" class="i-input-number-plus {{value>=max?'i-input-number-disabled':''}}" data-type="add">						<image src="../../images/icon-input-add.png"></image>
+					</view>
+				</view>
+				<block wx:if="{{skuList[current].isLimit}}" >
+					<view class="msg">
+						<block wx:if="{{skuList[current].limitMemberNum>-1}}">							<span>每人限{{skuList[current].limitMemberNum}}单</span>
+						</block>
+						<block wx:if="{{skuList[current].limitOrderNum>-1}}">							<span>每单限{{skuList[current].limitOrderNum}}份</span>
+						</block>
+						<span></span>
+					</view>
+				</block>
+				<block wx:elif="{{(!skuList[current].isLimit&&skuList[current].canBuyNum-value<=10)&&skuList[current].canBuyNum-value>-1}}">					<view class="even-num">还可以购买 {{skuList[current].canBuyNum-value}} 件</view>
+				</block>
+			</view>
+			<form bindsubmit="gocarfrom" reportSubmit="true">
+				<button class="sku-confirm" disabled="{{cur_sku_arr.stock==0?true:false}}" formType="submit">
+					<view>{{cur_sku_arr.stock==0?'已抢光':'确定'}}</view>
+				</button>
+			</form>
+		</view>
+	</view>
+</view>
+<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" needAuth="{{needAuth&&showAuthModal}}" needPosition="{{needPosition}}"></i-new-auth>
+<i-vip-modal imgUrl="{{pop_vipmember_buyimage}}" visible="{{showVipModal}}"></i-vip-modal>

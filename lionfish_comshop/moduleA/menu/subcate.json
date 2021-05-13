@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "i-img": "../../components/img/index",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

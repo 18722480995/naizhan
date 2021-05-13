@@ -1,0 +1,34 @@
+
+<view class="report-room-detail">
+	<mp-navigation-bar back="true" color="#ffffff" extClass="mode__navigation-bar"></mp-navigation-bar>
+	<view class="report-room-detail__head" style="padding-top: {{statusBarHeight+'px'}}">
+		<view class="report-room-detail__head__title">投诉的直播间</view>
+		<view class="report-room-detail__head__main">
+			<view class="report-room-detail__head__main__head" style="background: url({{roomImg}}) no-repeat center; background-size: contain;"></view>
+			<view class="report-room-detail__head__main__body">
+				<view class="report-room-detail__head__main__body__title">{{roomTitle}}</view>
+				<view class="report-room-detail__head__main__body__main">
+					<view class="report-room-detail__head__main__body__main__item">直播时间 {{roomTime}}</view>
+					<view class="report-room-detail__head__main__body__main__item">所属小程序 {{weappName}}</view>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="report-room-detail__body">
+		<view class="report-room-detail__body__section report-room-detail__body__section__textarea">
+			<view class="report-room-detail__body__section__main">
+				<view class="report-room-detail__textarea__inner">
+					<textarea bindinput="bindReportContentInput" class="report-room-detail__textarea" maxlength="200" placeholder="输入投诉内容" placeholderClass="report-room-detail__placeholder" style="height: 108px"></textarea>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="report-room-detail__foot">
+		<block wx:if="{{showSubmitReport}}" >
+			<view bindtap="submitReport" class="weui-btn weui-btn_primary">提交投诉</view>
+		</block>
+		<block wx:else>
+			<view class="weui-btn weui-btn_primary weui-btn_disabled">提交投诉</view>
+		</block>
+	</view>
+</view>

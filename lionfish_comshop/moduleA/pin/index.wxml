@@ -1,0 +1,47 @@
+<view class="wrap {{isIpx?'pb20':''}}">
+	<block wx:if="{{classification.tabs.length}}">
+		<view class="sticky-content">
+			<i-tabs activeIndex="{{classification.activeIndex}}" bind:activeIndexChange="classificationChange" data-idx="1" fontColor="#000" iClass="category-list" tabs="{{classification.tabs}}"></i-tabs>
+		</view>
+	</block>
+	<view class="bg-f">
+		<block wx:if="{{classification.tabs.length}}">
+			<view class="blank35"></view>
+		</block>
+		<block wx:if="{{slider_list.length>0}}">			<view class="swipe">
+				<swiper autoplay circular indicatorDots class="swiper-content" duration="400" indicatorActiveColor="#FF5344" indicatorColor="#E7E9E7" interval="5000">
+					<block wx:for="{{slider_list}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+						<swiper-item>
+							<view bindtap="goBannerUrl" class="banner" data-idx="{{index}}">
+								<i-img iClass="banner-img" loadImage="{{item.image}}"></i-img>
+							</view>
+						</swiper-item>
+					</block>
+				</swiper>
+			</view>
+		</block>
+	</view>
+	<view class="list {{pintuan_show_type?'twoCol':''}}">
+		<block wx:for="{{rushList}}" wx:key="actId" wx:for-item="item" wx:for-index="index" >
+			<block wx:if="{{rushList.length}}">
+				<i-spu-big class="item" reduction="{{reduction}}" spuItem="{{item}}"></i-spu-big>
+			</block>
+		</block>
+		<block wx:for="{{rushList}}" wx:key="actId" wx:for-item="item" wx:for-index="index" >
+			<block wx:if="{{rushList.length&&false}}">
+				<i-spu-col reduction="{{reduction}}" spuItem="{{item}}"></i-spu-col>
+			</block>
+		</block>
+		<block wx:if="{{showEmpty}}">
+			<view class="none-rush-list">
+				<image class="img-block" src="../../images/icon-index-empty.png"></image>
+				<view class="h1">暂时没有拼团</view>
+			</view>
+		</block>
+		<block wx:if="{{(!loadOver&&!showEmpty)&&loadMore}}">
+			<i-load-more iClass="loadMore" loading="{{loadMore}}" tip="{{loadText}}"></i-load-more>
+		</block>
+	</view>
+</view>
+<i-tabbar cartNum="{{cartNum}}" class="tabbar {{isIpx?'pb20':''}}" currentIdx="2"></i-tabbar>
+<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" needAuth="{{needAuth&&showAuthModal}}" needPosition="{{needPosition}}"></i-new-auth>

@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "拼团规则",
+    "usingComponents": {
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

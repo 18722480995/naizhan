@@ -1,0 +1,48 @@
+<view class="wrap">
+	<view class="search-bar">
+		<view class="search-box">
+			<input bindconfirm="goResult" class="ipt" confirmType="搜索" placeholder="搜索活动" type="text"></input>
+			<view class="search-icon">
+				<text class="iconfont icon-sousuo1"></text>
+			</view>
+		</view>
+	</view>
+	<view class="list mb20">
+		<block wx:if="{{!noData&&list.length}}">
+			<block wx:for="{{list}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+				<i-card class="item" data-id="{{item.id}}">
+					<view class="header" slot="header">
+						<view class="title text-overflow1 weight">{{item.solitaire_name}}</view>
+					</view>
+					<view class="middle" slot="content">
+						<view class="mb5">
+							<text class="text-gray">发布时间：</text>{{item.begin_time}}						</view>
+						<view class="mb5">
+							<text class="text-gray">接龙状态：</text>
+							<text class="red">{{item.state_str}}</text>
+						</view>
+						<view class="i-flex i-flex-spb">
+							<view class="views text-gray">{{item.invite_count}}人看过  {{item.order_count}}人参加</view>
+							<block wx:if="{{item.appstate==1&&item.state==0}}" >
+								<view class="btn bg-ccc">接龙详情</view>
+							</block>
+							<block wx:else>
+								<navigator class="btn bg-primary" url="/lionfish_comshop/moduleA/solitaire/groupDetails?id={{item.id}}">接龙详情</navigator>
+							</block>
+						</view>
+					</view>
+				</i-card>
+			</block>
+			<block wx:if="{{!noMore}}">
+				<i-load-more iClass="loadMore" loading="{{loadMore}}" tip="{{loadText}}"></i-load-more>
+			</block>
+		</block>
+		<block wx:if="{{noData}}">
+			<i-empty>暂无接龙~</i-empty>
+		</block>
+	</view>
+	<navigator class="pub i-flex-col i-flex-alc" url="/lionfish_comshop/moduleA/solitaire/pub">
+		<text class="iconfont icon-fabu"></text>
+		<text class="pub-tit">发布接龙</text>
+	</navigator>
+</view>

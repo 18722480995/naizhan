@@ -1,0 +1,27 @@
+<navigator class="comming-spu-content" url="/lionfish_comshop/pages/goods/goodsDetail?id={{spuItem.actId}}">
+	<i-img class="spu-img-content" defaultImage="../../images/index-comming-goods-bitmap.png" height="120" iClass="spu-img" loadImage="{{spuItem.skuImage}}" width="120"></i-img>
+	<view class="spu-name">
+		<text class="span">{{spuItem.spuName}}</text>
+	</view>
+	<block wx:if="{{isPast}}" >
+		<view class="spu-desc">结束时间 {{endTime}}</view>
+	</block>
+	<block wx:else>
+		<view class="spu-desc">{{formatBeginTime}}{{spuItem.limitOrderNum>-1||spuItem.limitMemberNum>-1?' | 限购':''}}</view>
+	</block>
+	<view class="spu-price">
+		<view class="sale-price">
+			<text class="span">¥{{spuItem.actPrice[0]}}</text>.{{spuItem.actPrice[1]}}		</view>
+		<view class="market-price">¥{{spuItem.marketPrice[0]}}.{{spuItem.marketPrice[1]}}</view>
+	</view>
+	<block wx:if="{{isPast}}">
+		<view class="mask">
+			<view class="toast">团购已结束</view>
+		</view>
+	</block>
+	<block wx:if="{{isPast}}">
+		<view class="icon-shop">
+			<image class="img" src="../../images/icon-add-shopCart-disabled.png"></image>
+		</view>
+	</block>
+</navigator>

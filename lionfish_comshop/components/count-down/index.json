@@ -1,0 +1,7 @@
+{
+    "component": true,
+    "usingComponents": {
+        "routerLink": "../router-link/router-link",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "团长中心",
+    "navigationBarBackgroundColor": "#FE8464",
+    "usingComponents": {
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

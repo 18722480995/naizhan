@@ -1,0 +1,10 @@
+{
+    "navigationBarTitleText": "详情",
+    "usingComponents": {
+        "i-new-auth": "../../components/new-auth/index",
+        "i-goods-item": "../components/menuGoodsItem",
+        "sku": "../../components/sku/index",
+        "parser": "../../components/parser/parser",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

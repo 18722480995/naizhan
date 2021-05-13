@@ -1,0 +1,8 @@
+{
+    "navigationBarTitleText": "提现",
+    "usingComponents": {
+        "i-new-auth": "../../components/new-auth/index",
+        "parser": "../../components/parser/parser",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

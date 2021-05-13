@@ -1,0 +1,24 @@
+
+<view class="{{'count-time '+(name?'count-time__with-name':'')}}">
+	<block wx:if="{{name}}">
+		<view class="count-time__title live-player-main-name">{{name}}</view>
+	</block>
+	<block wx:if="{{from==='pusher'}}">
+		<block wx:if="{{countdownTime>0&&countdownTimeWording}}" >			<view class="count-time__title live-player-main-title">开播倒计时</view>
+			<view class="count-time__info live-player-main-countdown">{{countdownTimeWording}}</view>
+		</block>
+		<block wx:else>
+			<view class="count-time__info live-player-main-countdown-end">请开始直播</view>
+		</block>
+		<view bindtap="clickInitateLive" class="count-time__btn">发起直播</view>
+	</block>
+	<block wx:if="{{from==='player'}}">
+		<block wx:if="{{countdownTime>0&&countdownTimeContent}}" >			<view class="count-time__title live-player-main-title">直播倒计时</view>
+			<view class="count-time__info live-player-main-countdown">{{countdownTimeContent}}</view>
+		</block>
+		<block wx:else>
+			<view class="count-time__title live-player-main-desc">直播即将开始</view>
+		</block>
+		<view bindtap="clickSubscribe" class="{{isSubscribe?'count-time__btn live-player-hasSubscribe':'count-time__btn live-player-notSubscribe'}}">{{isSubscribe?'取消提醒':'开播提醒'}}</view>
+	</block>
+</view>

@@ -1,0 +1,64 @@
+<block wx:for="{{nodes}}" wx:key="index" wx:for-item="item" wx:for-index="index" >
+	<block wx:if="{{item.name=='img'}}" >
+		<rich-text bindlongpress="imglongtap" bindtap="imgtap" class="_img" data-attrs="{{item.attrs}}" id="{{item.attrs.id}}" nodes="{{handler.getNode(item,imgLoad)}}" style="text-indent:0;{{handler.getStyle(item.attrs.style,'inline-block')}}"></rich-text>
+	</block>
+	<block wx:elif="{{item.type=='text'}}">
+		<block wx:if="{{!item.decode}}" >
+			<text decode>{{item.text}}</text>
+		</block>
+		<block wx:else>
+			<rich-text nodes="{{[item]}}" style="display:inline-block"></rich-text>
+		</block>
+	</block>
+	<block wx:elif="{{item.name=='br'}}">
+		<text></text>
+	</block>
+	<block wx:elif="{{item.name=='a'}}">
+		<view bindtap="linkpress" class="_a {{item.attrs.class}}" data-attrs="{{item.attrs}}" hoverClass="navigator-hover" style="{{item.attrs.style}}">
+			<trees class="_node" nodes="{{item.children}}"></trees>
+		</view>
+	</block>
+	<block wx:elif="{{item.name=='video'}}">
+		<block wx:if="{{item.lazyLoad&&!controls[item.attrs.id].play}}" >
+			<view bindtap="loadVideo" class="_video {{item.attrs.class}}" id="{{item.attrs.id}}" style="{{item.attrs.style}}"></view>
+		</block>
+		<block wx:else>
+			<video autoplay="{{item.attrs.autoplay||controls[item.attrs.id].play}}" binderror="videoError" bindplay="play" class="{{item.attrs.class}}" controls="{{item.attrs.controls}}" data-source="{{item.attrs.source}}" id="{{item.attrs.id}}" loop="{{item.attrs.loop}}" muted="{{item.attrs.muted}}" poster="{{item.attrs.poster}}" src="{{controls[item.attrs.id]?item.attrs.source[controls[item.attrs.id].index]:item.attrs.src}}" style="{{item.attrs.style}}" unitId="{{item.attrs.unit-id}}"></video>
+		</block>
+	</block>
+	<block wx:elif="{{item.name=='audio'}}">
+		<audio author="{{item.attrs.author}}" binderror="audioError" class="{{item.attrs.class}}" controls="{{item.attrs.controls}}" data-source="{{item.attrs.source}}" id="{{item.attrs.id}}" loop="{{item.attrs.loop}}" name="{{item.attrs.name}}" poster="{{item.attrs.poster}}" src="{{controls[item.attrs.id]?item.attrs.source[controls[item.attrs.id].index]:item.attrs.src}}" style="{{item.attrs.style}}"></audio>
+	</block>
+	<block wx:elif="{{item.name=='ad'}}">
+		<ad binderror="adError" class="{{item.attrs.class}}" style="{{item.attrs.style}}" unitId="{{item.attrs.unit-id}}"></ad>
+	</block>
+	<block wx:elif="{{item.name=='li'}}">
+		<view class="{{item.attrs.class}} _li" style="{{item.attrs.style}};display:flex">
+			<block wx:if="{{item.type=='ol'}}" >
+				<view class="_ol-before">{{item.num}}</view>
+			</block>
+			<block wx:else>
+				<view class="_ul-before">
+					<block wx:if="{{item.floor%3==0}}" >
+						<view class="_ul-type1">█</view>
+					</block>
+					<block wx:elif="{{item.floor%3==2}}">
+						<view class="_ul-type2"></view>
+					</block>
+					<block wx:else>
+						<view class="_ul-type1" style="border-radius:50%">█</view>
+					</block>
+				</view>
+			</block>
+			<trees class="_node" controls="{{controls}}" nodes="{{item.children}}" style="display:block"></trees>
+		</view>
+	</block>
+	<block wx:elif="{{handler.useRichText(item)}}">
+		<rich-text class="__{{item.name}}" id="{{item.attrs.id}}" nodes="{{[item]}}" style="{{handler.getStyle(item.attrs.style,'block')}}"></rich-text>
+	</block>
+	<block wx:else>
+		<trees class="_node _{{item.name}} {{item.attrs.class}}" controls="{{controls}}" id="{{item.attrs.id}}" nodes="{{item.children}}" style="{{item.attrs.style}}"></trees>
+	</block>
+</block>
+<wsx src="/lionfish_comshop/components/parser/trees/handler.wxs"  module="handler" />
+

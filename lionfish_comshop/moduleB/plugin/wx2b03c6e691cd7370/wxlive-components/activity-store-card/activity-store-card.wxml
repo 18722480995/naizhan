@@ -1,0 +1,53 @@
+
+<view bindtap="clickViewPushGoods" class="activity-store-card fadeIn">
+	<view class="activity-store-card__inner">
+		<block wx:if="{{from==='player'}}" >
+			<view class="activity-store-card__item">
+				<navigator class="activity-store-card__item__inner" hoverClass="navigator-hover" url="{{url}}">
+					<view class="activity-store-card__item__head">
+						<image class="activity-store-card__item__avatar" mode="aspectFill" src="{{avatar}}"></image>
+					</view>
+					<view class="activity-store-card__item__body">
+						<text class="activity-store-card__item__title">{{title}}</text>
+						<block wx:if="{{priceType===1}}" >
+							<text class="activity-store-card__item__price">¥ {{price}}</text>
+						</block>
+						<block wx:elif="{{priceType===2}}">
+							<text class="activity-store-card__item__price">¥ {{price}} - ¥ {{price2}}</text>
+						</block>
+						<block wx:elif="{{priceType===3}}">
+							<view class="activity-store-card__item__price__container">
+								<text class="activity-store-card__item__price">¥ {{price2}}</text>
+								<text class="activity-store-card__item__price activity-store-card__item__price-before">¥ {{price}}</text>
+							</view>
+						</block>
+					</view>
+				</navigator>
+			</view>
+		</block>
+		<block wx:else>
+			<view class="activity-store-card__item">
+				<view class="activity-store-card__item__inner">
+					<view class="activity-store-card__item__head">
+						<image class="activity-store-card__item__avatar" mode="aspectFill" src="{{avatar}}"></image>
+					</view>
+					<view class="activity-store-card__item__body">
+						<text class="activity-store-card__item__title">{{title}}</text>
+						<block wx:if="{{priceType===1}}" >
+							<text class="activity-store-card__item__price">¥ {{price}}</text>
+						</block>
+						<block wx:elif="{{priceType===2}}">
+							<text class="activity-store-card__item__price">¥ {{price}} - ¥ {{price2}}</text>
+						</block>
+						<block wx:elif="{{priceType===3}}">
+							<view class="activity-store-card__item__price__container">
+								<text class="activity-store-card__item__price">¥ {{price2}}</text>
+								<text class="activity-store-card__item__price-before">¥ {{price}}</text>
+							</view>
+						</block>
+					</view>
+				</view>
+			</view>
+		</block>
+	</view>
+</view>

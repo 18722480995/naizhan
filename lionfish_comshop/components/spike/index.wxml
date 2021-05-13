@@ -1,0 +1,38 @@
+<block wx:if="{{list.length}}">
+	<view class="new-comers">
+		<view class="new-comers-title">
+			<text>限时秒杀</text>
+			<block wx:if="{{rushEndTime}}">
+				<i-count-down clearTimer="{{clearTimer}}" countdownClass="count-down" itemClass="item-time" showDay="true" target="{{rushEndTime}}">
+					<span class="count-down-left-text">仅剩</span>
+				</i-count-down>
+			</block>
+		</view>
+		<scroll-view scrollX bindscrolltolower="getMore" class="new-comers-scroll">
+			<view class="new-comers-wrap">
+				<block wx:for="{{list}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+					<i-router-link routerClass="new-comers-item" url="/lionfish_comshop/pages/goods/goodsDetail?id={{item.actId}}">
+						<i-img defaultImage="../../images/placeholder-refund.png" height="200" iClass="new-img" loadImage="{{item.skuImage}}" width="180"></i-img>
+						<block wx:if="{{item.spuCanBuyNum==0}}">
+							<view class="act-end">已抢光</view>
+						</block>
+						<view class="title">{{item.spuName}}</view>
+						<view class="new-bot">
+							<view class="price">¥{{item.actPrice[0]}}.{{item.actPrice[1]}}</view>
+							<block wx:if="{{disabled||item.spuCanBuyNum==0}}" >
+								<i-button iClass="add-cart">
+									<image class="img" src="../../images/icon-add-shopCart-disabled.png"></image>
+								</i-button>
+							</block>
+							<block wx:else>
+								<i-button bind:click="openSku" data-idx="{{index}}" iClass="add-cart">
+									<image class="img" src="../../images/icon-add-shopCart.png"></image>
+								</i-button>
+							</block>
+						</view>
+					</i-router-link>
+				</block>
+			</view>
+		</scroll-view>
+	</view>
+</block>

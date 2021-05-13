@@ -1,0 +1,10 @@
+{
+    "navigationBarTitleText": "明细",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+        "i-auth": "../../components/auth/index",
+        "i-load-more": "../../components/load-more/index",
+        "i-card": "../../components/card/index",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

@@ -1,0 +1,24 @@
+<view bindtap="goDetail" class="goodsBox i-class">
+	<i-img defaultImage="../../images/placeholder-refund.png" height="200" iClass="goodsImg" loadImage="{{goodsInfo.goods_images}}" width="180"></i-img>
+	<block wx:if="{{isOrder}}">
+		<text class="identity i-class-identity">我是{{goodsInfo.me_is_head==1||me_is_head?'团长':'团员'}}</text>
+	</block>
+	<view class="goodsInfo">
+		<view class="title">{{goodsInfo.name}}</view>
+		<block wx:if="{{isOrder}}" >
+			<view class="price">¥<text class="big">{{price}}</text>
+				<text class="num">x{{goodsInfo.quantity}}</text>
+				<text class="tag">{{goodsInfo.need_count||goodsInfo.pin_count}}人拼团</text>
+			</view>
+			<block wx:if="{{goodsInfo.orign_price}}">
+				<view class="marked-price">¥{{goodsInfo.orign_price}}</view>
+			</block>
+		</block>
+		<block wx:else>
+			<text class="tag">{{goodsInfo.pin_count}}人拼团</text>
+			<view class="price">¥<text class="big">{{goodsInfo.pinprice}}</text>
+				<text class="marked-price">¥{{goodsInfo.danprice}}</text>
+			</view>
+		</block>
+	</view>
+</view>

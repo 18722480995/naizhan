@@ -1,0 +1,16 @@
+<view class="headinfo i-flex bg-f mb10">
+	<image class="avatar" src="{{community.avatar}}"></image>
+	<view class="i-flex-item i-flex-col jcontent-sa">
+		<view class="weight fsz-30">{{community.head_name}}</view>
+		<view class="fsz-24 text-gray">
+			<text>绑定{{groupInfo.group_name}}：</text>{{community.community_name}}		</view>
+	</view>
+	<block wx:if="{{showShare}}">
+		<view class="share i-flex i-aic">
+			<text bindtap="shareQuan" class="iconfont icon-pengyouquan1" style="color: #50b674;"></text>
+			<button class="btn" openType="share">
+				<text class="iconfont icon-fenxiang2"></text>
+			</button>
+		</view>
+	</block>
+</view>

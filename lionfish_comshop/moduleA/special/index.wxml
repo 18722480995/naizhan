@@ -1,0 +1,130 @@
+<view class="special" style="background: {{info.bg_color?info.bg_color:'#f6f6f6f'}};">
+	<block wx:if="{{info.special_cover}}">
+		<image class="topic-img" mode="widthFix" src="{{info.special_cover}}"></image>
+	</block>
+	<block wx:if="{{list.length}}">
+		<view class="like">
+			<block wx:if="{{info.show_type==0}}" >
+				<view class="like-list">
+					<block wx:for="{{list}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+						<i-router-link routerClass="new-comers-item" url="/lionfish_comshop/pages/goods/goodsDetail?id={{item.actId}}">
+							<block wx:if="{{item.label_info&&item.label_info.type==0}}">
+								<view class="item-tag">
+									<image class="item-tag-bg" mode="widthFix" src="../../images/tag.png"></image>
+									<view class="tag-name {{item.label_info.len==2?'two-word':''}}">{{item.label_info.tagcontent}}</view>
+								</view>
+							</block>
+							<block wx:if="{{item.label_info&&item.label_info.type==1}}">
+								<view class="item-tag" style="background:url({{item.label_info.tagcontent}}) no-repeat left top;background-size: 100%;"></view>
+							</block>
+							<i-img defaultImage="../../images/placeholder-refund.png" height="200" iClass="new-img" loadImage="{{item.skuImage}}" width="180"></i-img>
+							<block wx:if="{{item.spuCanBuyNum==0}}">
+								<view class="act-end">已抢光</view>
+							</block>
+							<block wx:if="{{reduction.is_open_fullreduction==1&&item.is_take_fullreduction==1}}">
+								<view class="spu-active">
+									<view class="tag">满{{reduction.full_money}}减{{reduction.full_reducemoney}}</view>
+									<block wx:if="{{item.isLimit}}">
+										<view class="tag tag-green">限购</view>
+									</block>
+								</view>
+							</block>
+							<view class="title">{{item.spuName}}</view>
+							<view class="new-bot">
+								<view>
+									<view class="price">¥{{item.actPrice[0]}}.{{item.actPrice[1]}}</view>
+									<view class="market-price">¥{{item.marketPrice[0]}}.{{item.marketPrice[1]}}</view>
+								</view>
+								<block wx:if="{{item.car_count<=0}}" >
+									<block wx:if="{{disabled||item.spuCanBuyNum==0}}" >
+										<i-button iClass="add-cart disabled">已抢光</i-button>
+									</block>
+									<block wx:else>
+										<i-button bind:click="openSku" data-idx="{{index}}" iClass="add-cart">立即抢购</i-button>
+									</block>
+								</block>
+								<block wx:else>
+									<i-input-number addImage="../../images/icon-add-2.png" bind:change="changeNumber" bind:outOfMax="outOfMax" iClass="index-input-number" iClassNumberText="input-number-text" idx="{{index}}" max="{{item.spuCanBuyNum}}" min="0" reduceImage="../../images/icon-reduce-2.png" value="{{item.car_count}}"></i-input-number>
+								</block>
+							</view>
+						</i-router-link>
+					</block>
+				</view>
+			</block>
+			<block wx:else>
+				<view class="spu">
+					<block wx:for="{{list}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+						<i-router-link routerClass="spu-content" url="/lionfish_comshop/pages/goods/goodsDetail?&id={{item.actId}}">
+							<view class="item-top">
+								<block wx:if="{{item.label_info&&item.label_info.type==0}}">
+									<view class="item-tag">
+										<image class="item-tag-bg" mode="widthFix" src="../../images/tag.png"></image>
+										<view class="tag-name {{item.label_info.len==2?'two-word':''}}">{{item.label_info.tagcontent}}</view>
+									</view>
+								</block>
+								<block wx:if="{{item.label_info&&item.label_info.type==1}}">
+									<view class="item-tag" style="background:url({{item.label_info.tagcontent}}) no-repeat left top;background-size: 100%;"></view>
+								</block>
+								<i-img defaultImage="{{placeholdeImg?placeholdeImg:'../../images/placeholder-refund.png'}}" height="400" iClass="img-class" lazyLoad="true" loadImage="{{item.bigImg?item.bigImg:item.skuImage}}" width="710"></i-img>
+								<block wx:if="{{reduction.is_open_fullreduction==1&&item.is_take_fullreduction==1}}">
+									<view class="spu-active">
+										<view class="tag">满{{reduction.full_money}}减{{reduction.full_reducemoney}}</view>
+										<block wx:if="{{item.isLimit}}">
+											<view class="tag tag-green">限购</view>
+										</block>
+									</view>
+								</block>
+							</view>
+							<view class="item-bottom">
+								<view class="item-right-top">
+									<view class="spu-title">
+										<text class="span">{{item.spuName}}</text>
+									</view>
+									<block wx:if="{{item.spuDescribe}}">
+										<view class="spu-desc">
+											<em>{{item.spuDescribe}}</em>
+										</view>
+									</block>
+								</view>
+								<view class="spu-price">
+									<view class="sale-price">
+										<text class="span">¥{{item.actPrice[0]}}</text>.{{item.actPrice[1]}}									</view>
+									<view class="market-price">¥{{item.marketPrice[0]}}.{{item.marketPrice[1]}}</view>
+								</view>
+							</view>
+							<block wx:if="{{item.car_count<=0}}" >
+								<block wx:if="{{item.spuCanBuyNum==0}}" >
+									<i-button disabled="{{item.spuCanBuyNum==0}}" iClass="add-cart-disabled">已抢光</i-button>
+								</block>
+								<block wx:else>
+									<i-button bind:click="openSku" data-idx="{{index}}" iClass="add-cart">立即抢购</i-button>
+								</block>
+							</block>
+							<block wx:else>
+								<i-input-number addImage="../../images/icon-add-2.png" bind:change="changeNumber" bind:outOfMax="outOfMax" iClass="index-input-number" iClassNumberText="input-number-text" idx="{{index}}" max="{{item.spuCanBuyNum}}" min="0" reduceImage="../../images/icon-reduce-2.png" value="{{item.car_count}}"></i-input-number>
+							</block>
+							<block wx:if="{{item.spuCanBuyNum==0?'disabled':''}}">
+								<view class="mask"></view>
+							</block>
+							<block wx:if="{{item.spuCanBuyNum==0}}">
+								<view class="act-end act-out">已抢光</view>
+							</block>
+						</i-router-link>
+					</block>
+				</view>
+			</block>
+		</view>
+	</block>
+	<block wx:if="{{noData}}">
+		<view class="none-rush-list">
+			<image class="img-block" src="../../images/icon-index-empty.png"></image>
+			<view class="h1">暂时没有团购</view>
+			<view class="h2">我们正在为您准备更优惠的团购</view>
+		</view>
+	</block>
+	<i-aside-btn showHome="true" showShare="{{ishowShareBtn==1}}"></i-aside-btn>
+	<i-cart-btn cartNum="{{cartNum}}" showHome="true"></i-cart-btn>
+</view>
+<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" needAuth="{{needAuth&&showAuthModal}}"></i-new-auth>
+<sku bind:cancel="closeSku" bind:changeCartNum="changeCartNum" bind:vipModal="vipModal" cur_sku_arr="{{cur_sku_arr}}" goodsid="{{addCar_goodsid}}" sku="{{sku}}" skuList="{{skuList}}" sku_val="{{sku_val}}" visible="{{visible}}"></sku>
+<i-vip-modal imgUrl="{{pop_vipmember_buyimage}}" visible="{{showVipModal}}"></i-vip-modal>

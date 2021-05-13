@@ -1,0 +1,35 @@
+<i-auth bind:authSuccess="authSuccess" needAuth="{{!is_login}}">
+	<view class="charge-box">
+		<block wx:if="{{showData===0}}">
+			<view class="noDistributionList" style="height:{{containerHeight}}px">
+				<image class="noDistributionListImg" src="../../images/noData.png"></image>
+				<view class="noDistributionListTit">暂无任何明细记录</view>
+			</view>
+		</block>
+		<block wx:if="{{showData===1}}">
+			<view class="list">
+				<i-card>
+					<view slot="content">
+						<block wx:for="{{list}}" wx:key="key" wx:for-item="item" wx:for-index="index" >
+							<view class="listData">
+								<view class="list-tit">
+									<text class="tit">{{remark[item.state]}} {{item.state==3||item.state==8?'-':'+'}}{{item.money}}<block wx:if="{{item.give_money>0}}">											<text>(送：{{item.give_money}})</text>
+										</block>
+									</text>
+									<text class="num yue">余额:{{item.current_yuer}}</text>
+								</view>
+								<block wx:if="{{(item.state==3||item.state==4)||item.state==6}}">
+									<view class="list-orderNo">{{item.trans_id}}</view>
+								</block>
+								<view class="list-time">{{item.charge_time}}</view>
+							</view>
+						</block>
+					</view>
+				</i-card>
+				<block wx:if="{{!isHideLoadMore}}">
+					<i-load-more iClass="loadMore" loading="{{!isHideLoadMore}}" tip="{{loadText}}"></i-load-more>
+				</block>
+			</view>
+		</block>
+	</view>
+</i-auth>

@@ -1,0 +1,16 @@
+
+<view class="weui-gallery {{show?'weui-gallery_show':''}} {{extClass}}">
+	<view class="weui-gallery__info">{{current+1}}/{{imgUrls.length}}</view>
+	<swiper autoplay="false" bindchange="change" bindtap="hideGallery" class="weui-gallery__img__wrp" current="{{current}}" duration="500" indicatorDots="false">
+		<block wx:for="{{imgUrls}}" wx:key="*this" wx:for-item="item" wx:for-index="index" >
+			<swiper-item>
+				<image class="weui-gallery__img" mode="aspectFit" src="{{item}}"></image>
+			</swiper-item>
+		</block>
+	</swiper>
+	<block wx:if="{{delete}}">
+		<view class="weui-gallery__opr">
+			<navigator bindtap="deleteImg" class="weui-gallery__del" href="javascript:">删除</navigator>
+		</view>
+	</block>
+</view>

@@ -1,0 +1,3 @@
+<block wx:if="{{showSubscribe}}">
+	<view bindtap="clickSubscribe" class="{{isSubscribe?'live-player-subscribe__btn live-player-hasSubscribe':'live-player-subscribe__btn live-player-notSubscribe'}}">{{isSubscribe?'取消提醒':'开播提醒'}}</view>
+</block>

@@ -1,0 +1,115 @@
+<view class="wrap">
+	<block wx:if="{{info.images}}">
+		<view class="media-box">
+			<block wx:if="{{info.video!=''&&info.video!=null}}" >
+				<view class="video-wrap">
+					<block wx:if="{{fmShow==true}}">
+						<view>
+							<block wx:if="{{info.video==''}}" >
+								<view class="btn_view centerboth"></view>
+							</block>
+							<block wx:else>
+								<view bindtap="btnPlay" class="btn_view centerboth">
+									<image src="../../images/play.png"></image>
+								</view>
+							</block>
+							<image bindload="imageLoad" class="topImg" lazyLoad="true" mode="widthFix" src="{{info.images}}"></image>
+						</view>
+					</block>
+					<video bindended="videEnd" class="swiper-video" hidden="{{fmShow}}" id="myVideo" src="{{info.video}}" style="min-height:{{imageSize.imageHeight}}px"></video>
+				</view>
+			</block>
+			<block wx:else>
+				<image class="topImg" mode="widthFix" src="{{info.images}}"></image>
+			</block>
+		</view>
+	</block>
+	<view bindtap="endPlay" class="end-play" hidden="{{fmShow}}">
+		<text class="btn">退出播放</text>
+	</view>
+	<view>
+		<block wx:if="{{info.video&&!info.images}}">
+			<video autoplay controls id="myVideo" src="{{info.video}}" style="width:100%;"></video>
+		</block>
+	</view>
+	<view class="bg-f mb10 p15">
+		<view class="title weight">{{info.recipe_name}}</view>
+		<block wx:if="{{info.make_time||info.diff_name}}">
+			<view class="desc">
+				<block wx:if="{{info.make_time}}">
+					<text>制作时间：{{info.make_time}} |</text>
+				</block>
+				<block wx:if="{{info.diff_name}}">
+					<text>难度：{{info.diff_name}}</text>
+				</block>
+			</view>
+		</block>
+		<view class="userinfo">
+			<view class="i-flex i-aic">
+				<block wx:if="{{info.avatar}}">
+					<image class="avatar" src="{{info.avatar}}"></image>
+				</block>
+				<block wx:if="{{info.username}}">
+					<text class="weight" style="font-size:26rpx;">{{info.username}}</text>
+				</block>
+			</view>
+			<block wx:if="{{info.sub_name}}">
+				<view class="p">{{info.sub_name}}</view>
+			</block>
+		</view>
+	</view>
+	<block wx:if="{{info.recipe_ingredients.length}}">
+		<view class="list bg-f mb10 pb15">
+			<view class="com-tit weight p15" style="padding-bottom:0;">清单</view>
+			<block wx:for="{{info.recipe_ingredients}}" wx:key="index" wx:for-item="item" wx:for-index="index" >
+				<view>
+					<block wx:if="{{item.ingredients_title}}">
+						<view class="list-tit p15">
+							<text class="weight">·</text>{{item.ingredients_title}}						</view>
+					</block>
+					<block wx:if="{{item.goods}}">
+						<view class="list-box">
+							<block wx:for="{{item.goods}}" wx:key="idx" wx:for-item="good" wx:for-index="idx" >
+								<i-goods-item bind:authModal="authModal" bind:changeCartNum="changeCartNum" bind:openSku="openSku" bind:vipModal="vipModal" needAuth="{{needAuth}}" spuItem="{{good}}"></i-goods-item>
+							</block>
+						</view>
+					</block>
+				</view>
+			</block>
+		</view>
+	</block>
+	<block wx:if="{{info.content}}">
+		<view class="details bg-f p15">
+			<view class="com-tit weight">详情</view>
+			<view class="wxParse">
+				<!-- <parser html="{{info.content}}"></parser> -->
+        <rich-text nodes="{{info.content}}"></rich-text>
+			</view>
+		</view>
+	</block>
+	<view class="pb100"></view>
+	<view class="foot i-flex i-flex-alc bg-f">
+		<view bindtap="goLink" class="i-flex-item foot-item" data-link="switchTo:/lionfish_comshop/pages/order/shopCart">
+			<view style="position: relative; display:inline-block;">
+				<block wx:if="{{cartNum>0}}">					<text class="cart-num">{{cartNum}}</text>
+				</block>
+				<text class="iconfont icon-gouwuche"></text>
+			</view>
+			<view>购物车</view>
+		</view>
+		<view bindtap="agree" class="i-flex-item foot-item">
+			<text class="iconfont icon-xinaixin {{info.has_fav==1?'active':''}}" style="color:#d1d2d2;"></text>
+			<view>喜欢 {{info.fav_count}}</view>
+		</view>
+		<view class="i-flex-item foot-item">
+			<button class="btn" openType="share">
+				<text class="iconfont icon-fenxiang"></text>
+				<view class="name">分享</view>
+			</button>
+		</view>
+	</view>
+</view>
+<canvas canvasId="myCanvas" class="canvas-img" style="width: {{canvasWidth}}px;height: {{canvasHeight}}px;"></canvas>
+<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" needAuth="{{needAuth&&showAuthModal}}" needPosition="true"></i-new-auth>
+<sku bind:cancel="closeSku" bind:changeCartNum="changeCartNum" bind:vipModal="vipModal" cur_sku_arr="{{cur_sku_arr}}" goodsid="{{addCar_goodsid}}" sku="{{sku}}" skuList="{{skuList}}" sku_val="{{sku_val}}" visible="{{visible}}"></sku>
+<i-vip-modal imgUrl="{{pop_vipmember_buyimage}}" visible="{{showVipModal}}"></i-vip-modal>

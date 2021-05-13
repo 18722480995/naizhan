@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "parser": "../../components/parser/parser",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

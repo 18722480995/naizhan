@@ -1,0 +1,28 @@
+
+<view class="{{from==='player'?'profile-modal':'profile-modal profile-modal__pusher'}}">
+	<view class="profile-modal__inner">
+		<view bindtap="closeProfileModal" class="profile-modal__mask"></view>
+		<view class="profile-modal__dialog">
+			<view class="profile-modal__dialog__inner">
+				<view bindtap="closeProfileModal" class="profile-modal__dialog__close"></view>
+				<view class="profile-modal__dialog__body">
+					<image class="profile-modal__dialog__avatar" src="{{weappImg}}"></image>
+					<view class="profile-modal__dialog__store-name">{{weappName}}</view>
+					<view class="profile-modal__dialog__info__area">
+						<block wx:if="{{roomTitle}}">
+							<view class="profile-modal__dialog__info profile-modal__dialog__info__room-title">本场专题：{{roomTitle}}</view>
+						</block>
+						<block wx:if="{{anchorName}}">
+							<view class="profile-modal__dialog__info profile-modal__dialog__info__anchor-name">本场主播：{{anchorName}}</view>
+						</block>
+					</view>
+				</view>
+				<block wx:if="{{from==='player'}}">
+					<view class="profile-modal__dialog__foot">
+						<view bindtap="clickReportRoom" class="profile-modal__dialog__reportRoom">投诉直播间</view>
+					</view>
+				</block>
+			</view>
+		</view>
+	</view>
+</view>

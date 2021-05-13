@@ -1,0 +1,11 @@
+
+<view class="{{'push-comment push-comment-transition '+(isShow?'push-comment__show':'push-comment__hide')}}">
+	<view bindtap="closePushComment" class="push-comment__mask"></view>
+	<view class="push-comment__inner">
+		<view class="{{'push-comment__input push-comment__input-faker '+(pushComment?'push-comment__input-faker__placeholder':'')}}">
+			<view class="push-comment__input-faker__inner">{{pushComment||placeholder}}</view>
+		</view>
+		<input confirmHold holdKeyboard focus adjustPosition="false" bindblur="blurPushComment" bindconfirm="confirmPushComment" bindfocus="focusPushComment" bindinput="inputPushComment" bindkeyboardheightchange="bindKeyboardHeightChange" class="push-comment__input" confirmType="send" cursorSpacing="22" keyboardAppearance="dark" maxlength="{{maxlength}}" placeholder="{{placeholder}}" placeholderStyle="color: rgba(255, 255, 255, 0.5)" value="{{pushComment}}"></input>
+		<view bindtap="confirmPushComment" class="{{'push-comment__send__btn '+(isSendDisabled?'push-comment__send__btn__disabled':'')}}">发送</view>
+	</view>
+</view>

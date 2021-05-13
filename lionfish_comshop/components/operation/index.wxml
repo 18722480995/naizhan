@@ -1,0 +1,20 @@
+<view class="card-btn">
+	<block wx:if="{{canEvaluate===1}}">
+		<view bindtap="goComment" class="btn-1">去评价</view>
+	</block>
+	<block wx:if="{{isCanRefund===1}}">
+		<view bindtap="applyForService" class="btn-1 mar-left-8">申请售后</view>
+	</block>
+	<block wx:if="{{isCanRefund!==1}}">
+		<button class="btn-1 mar-left-8" openType="contact" sessionFrom="sobot|{{userInfo.nickName}}|{{userInfo.avatarUrl}}">
+			<text>联系客服</text>
+		</button>
+	</block>
+	<block wx:if="{{orderStatus===4}}">
+		<view class="btn-2 mar-left-8">备货中</view>
+	</block>
+	<block wx:if="{{orderStatus===1&&orderSkuStatus===0}}">
+		<view bindtap="callDialog" class="btn-3 mar-left-8" data-show="confirmGoodsVisible">确认提货</view>
+	</block>
+</view>
+<i-dialog bind:cancel="callDialog" bind:confirm="confirmGoods" data-cancel="confirmGoodsVisible" text="确认该商品已经提货？" visible="{{confirmGoodsVisible}}"></i-dialog>

@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "评价",
+    "usingComponents": {
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

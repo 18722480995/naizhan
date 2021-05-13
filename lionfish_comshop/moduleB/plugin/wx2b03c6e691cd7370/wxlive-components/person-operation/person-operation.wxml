@@ -1,0 +1,33 @@
+
+<view class="person-operation">
+	<view class="person-operation__inner">
+		<block wx:if="{{(from==='player'&&type!=='end')||from==='pusher'}}">
+			<block wx:if="{{from==='player'}}">
+				<view class="person-operation__item person-operation__like">
+					<canvas class="person-operation__like__animation" id="person-operation__player__like-canvas" style="width: 110px; height: 355px;" type="2d"></canvas>
+					<view bindtap="clickLike" class="person-operation__btn person-operation__like-btn has-events">
+						<view class="person-operation__item__inner mode-filter-black">
+							<view class="person-operation__like-btn__icon"></view>
+						</view>
+					</view>
+					<view class="person-operation__item__info">{{liveStatSimulateLike}}</view>
+				</view>
+				<view bindtap="clickComment" class="person-operation__btn person-operation__comment">
+					<view class="person-operation__item__inner mode-filter-black">
+						<view class="person-operation__comment-btn has-events"></view>
+					</view>
+				</view>
+			</block>
+			<block wx:if="{{from==='pusher'&&type!=='end'}}">
+				<view bindtap="clickSetting" class="person-operation__btn person-operation__setting">
+					<view class="person-operation__item__inner mode-filter-black has-events">
+						<view class="person-operation__setting-btn icon__setting"></view>
+					</view>
+				</view>
+			</block>
+		</block>
+		<view bindtap="clickStore" class="person-operation__item person-operation__store">
+			<view class="person-operation__btn person-operation__store-btn has-events"></view>
+		</view>
+	</view>
+</view>

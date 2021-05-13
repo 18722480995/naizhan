@@ -1,0 +1,10 @@
+{
+    "component": true,
+    "usingComponents": {
+        "i-dialog": "../dialog/index",
+        "i-money": "../moneyFormat/index",
+        "i-operation": "../operation/index",
+        "i-img": "../img/index",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

@@ -1,0 +1,38 @@
+
+<!--   pin    -->
+<template name="pin">
+		<block wx:if="{{(pinList.list&&pinList.list.length)&&pinList.show==1}}">
+			<view bindtap="goLink" class="pin-spec" data-link="/lionfish_comshop/moduleA/pin/index">
+				<block wx:if="{{pinList.img}}">
+					<image class="pin-spec-img" mode="widthFix" src="{{pinList.img}}"></image>
+				</block>
+				<scroll-view scrollX class="pin-spec-scroll">
+					<view class="pin-spec-wrap">
+						<block wx:for="{{pinList.list}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+							<view class="pin-spec-item">
+								<i-img defaultImage="../../images/placeholder-refund.png" height="200" iClass="pin-img" loadImage="{{item.skuImage}}" width="180"></i-img>
+								<block wx:if="{{item.label_info&&item.label_info.type==0}}">
+									<view class="item-tag">
+										<image class="item-tag-bg" mode="widthFix" src="../../images/tag.png"></image>
+										<view class="tag-name {{item.label_info.len==2?'two-word':''}}">{{item.label_info.tagcontent}}</view>
+									</view>
+								</block>
+								<block wx:if="{{item.label_info&&item.label_info.type==1}}">
+									<view class="item-tag" style="background:url({{item.label_info.tagcontent}}) no-repeat left top;background-size: 100%;"></view>
+								</block>
+								<block wx:if="{{item.spuCanBuyNum==0}}">
+									<view class="act-end">已抢光</view>
+								</block>
+								<view class="title">{{item.spuName}}</view>
+								<text class="pin-tag">{{item.pin_count}}人团</text>
+								<view class="new-bot">
+									<view class="price">¥{{item.actPrice[0]}}.{{item.actPrice[1]}}</view>
+									<view class="market-price">¥{{item.marketPrice[0]}}.{{item.marketPrice[1]}}</view>
+								</view>
+							</view>
+						</block>
+					</view>
+				</scroll-view>
+			</view>
+		</block>
+	</template>

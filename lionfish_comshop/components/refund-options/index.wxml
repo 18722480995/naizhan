@@ -1,0 +1,25 @@
+<i-modal bind:cancel="close" iClass="sku-content" scrollUp="true" visible="{{visible}}">
+	<view class="options-card">
+		<view class="title">{{title}}</view>
+		<radio-group bindchange="radioChange">
+			<block wx:for="{{optionsList}}" wx:key="{{index}}" wx:for-item="item" wx:for-index="index" >
+				<label class="item">
+					<view>{{item.name}}</view>
+					<view class="checkbox">
+						<block wx:if="{{defaultVal===index||selected===index}}" >
+							<image class="radio-checked" src="../../images/checkbox-checked.png"></image>
+						</block>
+						<block wx:else>
+							<image class="radio-disabled" src="../../images/checkbox-disabled.png"></image>
+						</block>
+						<radio hidden value="{{index}}"></radio>
+					</view>
+				</label>
+			</block>
+		</radio-group>
+		<view class="btns">
+			<view bindtap="cancel" class="cancel btns-view">取消</view>
+			<view bindtap="confirm" class="confirm btns-view">确定</view>
+		</view>
+	</view>
+</i-modal>

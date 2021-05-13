@@ -1,0 +1,35 @@
+
+<view class="lottery">
+	<block wx:if="{{from==='player'}}" >
+		<canvas bindtap="clickLottery" class="lottery__animation" id="lottery__canvas" style="width: 82px; height: 94px;" type="2d"></canvas>
+		<view bindtap="clickLottery" class="lottery__inner">
+			<block wx:if="{{(!firstStartLotteryAnimation&&!nextStartLotteryAnimation)&&!endLotteryAnimation}}" >
+				<block wx:if="{{type}}">
+					<view class="lottery__icon {{(type==='result'||type==='result-list')||type==='error'?'lottery__icon__end':''}}"></view>
+				</block>
+			</block>
+			<block wx:else>
+				<view class="lottery__icon__empty"></view>
+			</block>
+			<block wx:if="{{showCountTime}}" >
+				<view class="lottery__info">{{countTime}}</view>
+			</block>
+			<block wx:else>
+				<view class="lottery__info empty"></view>
+			</block>
+		</view>
+	</block>
+	<block wx:else>
+		<view bindtap="clickLottery" class="lottery__inner">
+			<block wx:if="{{type}}">
+				<view class="lottery__icon {{(type==='result'||type==='result-list')||type==='error'?'lottery__icon__end':''}}"></view>
+			</block>
+			<block wx:if="{{showCountTime&&type!=='unstart'}}" >
+				<view class="lottery__info">{{countTime}}</view>
+			</block>
+			<block wx:else>
+				<view class="lottery__info empty"></view>
+			</block>
+		</view>
+	</block>
+</view>

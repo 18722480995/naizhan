@@ -1,0 +1,6 @@
+
+<view class="test-functional-page">
+	<functional-page-navigator args="" bind:success="loginSuccess" name="loginAndGetUserInfo" version="develop">
+		<button>登录到插件</button>
+	</functional-page-navigator>
+</view>

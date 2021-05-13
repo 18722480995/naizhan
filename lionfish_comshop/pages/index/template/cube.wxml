@@ -1,0 +1,69 @@
+<!--   cube    -->
+<template name="cube">
+		<block wx:if="{{data.length}}">
+			<view class="cube">
+				<block wx:for="{{data}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+					<block wx:if="{{item.type==1}}">
+						<view class="cube-item">
+							<image bindtap="goCube" class="cube-one rounded" data-idx="0" data-index="{{index}}" mode="widthFix" src="{{item.thumb.cover[0]}}"></image>
+						</view>
+					</block>
+					<block wx:if="{{item.type==2}}">
+						<view class="cube-item">
+							<i-img bindtap="goCube" data-idx="0" data-index="{{index}}" height="365" iClass="cube-left rounded" loadImage="{{item.thumb.cover[0]}}" width="295"></i-img>
+							<i-img bindtap="goCube" data-idx="1" data-index="{{index}}" height="365" iClass="cube-two rounded" loadImage="{{item.thumb.cover[1]}}" width="450"></i-img>
+						</view>
+					</block>
+					<block wx:if="{{item.type==3}}">
+						<view class="cube-item">
+							<i-img bindtap="goCube" data-idx="0" data-index="{{index}}" height="365" iClass="cube-left rounded" loadImage="{{item.thumb.cover[0]}}" width="275"></i-img>
+							<view class="i-flex-col i-flex-spb">
+								<i-img bindtap="goCube" data-idx="1" data-index="{{index}}" height="180" iClass="cube-three rounded" loadImage="{{item.thumb.cover[1]}}" width="430"></i-img>
+								<i-img bindtap="goCube" data-idx="2" data-index="{{index}}" height="180" iClass="cube-three rounded" loadImage="{{item.thumb.cover[2]}}" width="430"></i-img>
+							</view>
+						</view>
+					</block>
+					<block wx:if="{{item.type==4}}">
+						<view class="cube-item">
+							<i-img bindtap="goCube" data-idx="0" data-index="{{index}}" height="365" iClass="cube-left rounded" loadImage="{{item.thumb.cover[0]}}" width="275"></i-img>
+							<view class="i-flex-col i-flex-spb">
+								<i-img bindtap="goCube" data-idx="1" data-index="{{index}}" height="180" iClass="cube-three rounded" loadImage="{{item.thumb.cover[1]}}" width="430"></i-img>
+								<view class="i-flex i-flex-spb w450">
+									<i-img bindtap="goCube" data-idx="2" data-index="{{index}}" height="180" iClass="cube-four rounded" loadImage="{{item.thumb.cover[2]}}" width="212.5"></i-img>
+									<i-img bindtap="goCube" data-idx="3" data-index="{{index}}" height="180" iClass="cube-four rounded" loadImage="{{item.thumb.cover[3]}}" width="212.5"></i-img>
+								</view>
+							</view>
+						</view>
+					</block>
+					<block wx:if="{{item.type==5}}">
+						<view class="cube-item">
+							<block wx:for="{{item.thumb.cover}}" wx:key="idx" wx:for-item="imgItem" wx:for-index="idx" >
+								<image bindtap="goCube" class="cube-w" data-idx="{{idx}}" data-index="{{index}}" mode="widthFix" src="{{imgItem}}"></image>
+							</block>
+						</view>
+					</block>
+					<block wx:if="{{item.type==6}}">
+						<view class="cube-item">
+							<block wx:for="{{item.thumb.cover}}" wx:key="idx" wx:for-item="imgItem" wx:for-index="idx" >
+								<image bindtap="goCube" class="cube-w" data-idx="{{idx}}" data-index="{{index}}" mode="widthFix" src="{{imgItem}}"></image>
+							</block>
+						</view>
+					</block>
+					<block wx:if="{{item.type==7}}">
+						<view class="cube-item">
+							<block wx:for="{{item.thumb.cover}}" wx:key="idx" wx:for-item="imgItem" wx:for-index="idx" >
+								<image bindtap="goCube" class="cube-w" data-idx="{{idx}}" data-index="{{index}}" mode="widthFix" src="{{imgItem}}"></image>
+							</block>
+						</view>
+					</block>
+					<block wx:if="{{item.type==8}}">
+						<view class="cube-item two-row">
+							<block wx:for="{{item.thumb.cover}}" wx:key="idx" wx:for-item="imgItem" wx:for-index="idx" >
+								<image bindtap="goCube" class="cube-w" data-idx="{{idx}}" data-index="{{index}}" mode="widthFix" src="{{imgItem}}"></image>
+							</block>
+						</view>
+					</block>
+				</block>
+			</view>
+		</block>
+	</template>

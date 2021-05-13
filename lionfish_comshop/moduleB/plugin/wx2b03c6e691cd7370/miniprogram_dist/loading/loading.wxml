@@ -1,0 +1,15 @@
+
+<view animation="{{animationData}}" class="wx_loading_view {{extClass}}" id="wx_loading_view" style="display:{{displayStyle}};">
+	<block wx:if="{{type==='dot-white'}}" >
+		<view class="loading wx_dot_loading wx_dot_loading_white"></view>
+	</block>
+	<block wx:elif="{{type==='dot-gray'}}">
+		<view class="loading wx_dot_loading"></view>
+	</block>
+	<block wx:elif="{{type==='circle'}}">
+		<view class="weui-loadmore">
+			<view class="weui-loading"></view>
+			<view class="weui-loadmore__tips">{{tips}}</view>
+		</view>
+	</block>
+</view>

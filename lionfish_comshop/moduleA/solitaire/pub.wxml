@@ -1,0 +1,51 @@
+<view class="wrap pb10">
+	<i-solitaire-head class="mb10" community="{{community}}"></i-solitaire-head>
+	<view class="form mb10">
+		<view class="cell">
+			<view class="cell-hd">标题：</view>
+			<view class="cell-bd">
+				<input bindinput="titleInput" class="cell-ipt" placeholder="请输入标题" type="text" value=""></input>
+			</view>
+		</view>
+		<view class="cell-col">
+			<text class="wordLimit text-gray">{{currentNoteLen|0}}/{{noteMaxLen}}</text>
+			<textarea bindinput="contentInput" class="cell-textarea" maxlength="500" placeholder="内容" value=""></textarea>
+		</view>
+		<view class="cell-col">
+			<view class="tit">上传接龙图片（最多10张）</view>
+			<view class="img-wrap">
+				<chooseImage bind:on-changeImage="changeImg" bind:onChooseImage="chooseImage" imgMax="10" token="{{token}}"></chooseImage>
+			</view>
+		</view>
+		<view class="sub-tit weight fsz-30 p30">商品项目</view>
+		<view class="cell-col">
+			<view class="video-wrap">
+				<block wx:for="{{goods}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+					<block wx:if="{{goods.length}}">
+						<view class="item">
+							<i-solitaire-good bind:onSelect="deleteGoods" idx="{{index}}" spuItem="{{item}}" type="2"></i-solitaire-good>
+						</view>
+					</block>
+				</block>
+				<navigator class="addBtn fsz-24" url="/lionfish_comshop/moduleA/solitaire/addGood">
+					<text class="iconfont icon-tubiaozhizuomoban fsz-28"></text>添加商品				</navigator>
+			</view>
+		</view>
+		<view class="sub-tit weight fsz-30 p30">活动设置</view>
+		<view class="cell">
+			<view class="cell-hd">开始时间：</view>
+			<view class="cell-bd">
+				<DateTimePicker bind:dateTimePicker="beginTimePicker" format="yyyy-MM-dd HH:mm:ss" name="begintime" placeholder="选择开始时间"></DateTimePicker>
+			</view>
+		</view>
+		<view class="cell">
+			<view class="cell-hd">结束时间：</view>
+			<view class="cell-bd">
+				<DateTimePicker bind:dateTimePicker="endTimePicker" format="yyyy-MM-dd HH:mm:ss" name="endtime" placeholder="选择结束时间"></DateTimePicker>
+			</view>
+		</view>
+	</view>
+	<view class="submit_button">
+		<view bindtap="subForm" class="span">发布接龙</view>
+	</view>
+</view>

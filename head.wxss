@@ -1,0 +1,2 @@
+[is="lionfish_comshop/components/parser/parser"]{display: block; overflow: scroll; -webkit-overflow-scrolling: touch;}
+[is="lionfish_comshop/components/parser/trees/trees"]{display: inherit; float: inherit;}

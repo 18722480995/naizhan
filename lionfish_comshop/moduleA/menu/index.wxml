@@ -1,0 +1,46 @@
+<view class="wrap">
+	<view class="i-flex i-flex-spb bg-f search-box">
+		<view class="ipt-box">
+			<text class="iconfont icon-sousuo1"></text>
+			<input bindconfirm="goResult" class="ipt" placeholder="搜索菜谱" placeholderStyle="color:#bfbfbf;" type="text"></input>
+		</view>
+		<view bindtap="goLink" class="search-fav" data-link="/lionfish_comshop/moduleA/menu/fav">
+			<view class="iconfont icon-xinaixin"></view>
+			<view style="font-size:18rpx;margin-top:5rpx;">喜欢</view>
+		</view>
+	</view>
+	<view class="pb100"></view>
+	<block wx:if="{{adv_arr.length>0}}">		<view class="swipe bg-f">
+			<swiper autoplay circular indicatorDots class="swiper-content" duration="400" indicatorActiveColor="#FF5344" indicatorColor="#E7E9E7" interval="5000">
+				<block wx:for="{{adv_arr}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+					<swiper-item>
+						<view bindtap="goBannerUrl" class="banner" data-idx="{{index}}">
+							<i-img iClass="banner-img" loadImage="{{item.thumb}}"></i-img>
+						</view>
+					</swiper-item>
+				</block>
+			</swiper>
+		</view>
+	</block>
+	<view class="cate bg-f">
+		<view class="cate-title weight">今日推荐</view>
+		<view id="tab" style="{{oneFixed=='Fixed'?'height: 90rpx;':'height: 0;'}}"></view>
+		<block wx:if="{{classification.tabs.length}}">
+			<view class="sticky-content i-flex i-flex-spb bg-f {{oneFixed}}">
+				<view class="i-flex-item">
+					<i-tabs activeIndex="{{classification.activeIndex}}" bind:activeIndexChange="classificationChange" fontColor="#000" iClass="category-list" tabs="{{classification.tabs}}"></i-tabs>
+				</view>
+				<navigator class="iconfont icon-fenlei_" hoverClass="none" url="/lionfish_comshop/moduleA/menu/subcate"></navigator>
+			</view>
+		</block>
+	</view>
+	<view class="container">
+		<masonry bind:needAuth="noLogin" id="masonry" intervalWidth="20rpx" generic:masonry-item="img-box"></masonry>
+	</view>
+	<block wx:if="{{showEmpty}}">
+		<i-empty>暂时没有{{modify_recipe_name}}</i-empty>
+	</block>
+</view>
+<view class="pb100"></view>
+<i-tabbar cartNum="{{cartNum}}" class="tabbar {{isIpx?'pb20':''}}" currentIdx="2"></i-tabbar>
+<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" needAuth="{{needAuth&&showAuthModal}}" needPosition="true"></i-new-auth>

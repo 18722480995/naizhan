@@ -1,0 +1,11 @@
+
+<view>
+	<view class="section">
+		<view class="wxParse">
+			<!-- <parser html="{{article}}"></parser> -->
+      <rich-text nodes="{{article}}"></rich-text>
+		</view>
+		<view bindtap="goLink" class="apply-btn" data-link="/lionfish_comshop/pages/supply/apply">申请成为{{supply_diy_name}}</view>
+	</view>
+</view>
+<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" needAuth="{{needAuth&&showAuthModal}}" needPosition="false"></i-new-auth>

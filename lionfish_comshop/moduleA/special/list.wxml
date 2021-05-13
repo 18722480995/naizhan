@@ -1,0 +1,44 @@
+<view class="wrap">
+	<block wx:for="{{specialList}}" wx:key="id" wx:for-item="vo" wx:for-index="idx" >
+		<block wx:if="{{specialList.length}}">
+			<view class="topic">
+				<block wx:if="{{vo.cover}}">
+					<image bindtap="goSpecial" class="topic-img" data-id="{{vo.id}}" mode="widthFix" src="{{vo.cover}}"></image>
+				</block>
+				<block wx:if="{{vo.list.length}}">
+					<view class="new-comers">
+						<scroll-view scrollX class="new-comers-scroll">
+							<view class="new-comers-wrap">
+								<block wx:for="{{vo.list}}" wx:key="gidx" wx:for-item="item" wx:for-index="gidx" >
+									<i-router-link routerClass="new-comers-item" url="/lionfish_comshop/pages/goods/goodsDetail?id={{item.actId}}">
+										<i-img defaultImage="../../images/placeholder-refund.png" height="200" iClass="new-img" loadImage="{{item.skuImage}}" width="180"></i-img>
+										<block wx:if="{{item.spuCanBuyNum==0}}">
+											<view class="act-end">已抢光</view>
+										</block>
+										<view class="title">{{item.spuName}}</view>
+										<view class="new-bot">
+											<view class="price">¥{{item.actPrice[0]}}.{{item.actPrice[1]}}</view>
+											<block wx:if="{{disabled||item.spuCanBuyNum==0}}" >
+												<i-button iClass="add-cart">
+													<image class="img" src="../../images/icon-add-shopCart-disabled.png"></image>
+												</i-button>
+											</block>
+											<block wx:else>
+												<i-button bind:click="openSku" data-gidx="{{gidx}}" data-idx="{{idx}}" iClass="add-cart">
+													<image class="img" src="../../images/icon-add-shopCart.png"></image>
+												</i-button>
+											</block>
+										</view>
+									</i-router-link>
+								</block>
+							</view>
+						</scroll-view>
+					</view>
+				</block>
+			</view>
+		</block>
+	</block>
+</view>
+<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" navBackUrl="{{navBackUrl}}" needAuth="{{needAuth&&showAuthModal}}"></i-new-auth>
+<i-sku bind:cancel="closeSku" bind:vipModal="vipModal" cur_sku_arr="{{cur_sku_arr}}" goodsid="{{addCar_goodsid}}" sku="{{sku}}" skuList="{{skuList}}" sku_val="{{sku_val}}" visible="{{visible}}"></i-sku>
+<i-vip-modal imgUrl="{{pop_vipmember_buyimage}}" visible="{{showVipModal}}"></i-vip-modal>

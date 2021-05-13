@@ -1,0 +1,41 @@
+<block wx:if="{{list.length}}">
+	<view class="list-box">
+		<block wx:for="{{list}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+			<view class="item">
+				<view class="spu">
+					<image class="i-class goodsImg" mode="aspectFill" src="{{item.goods_image?item.goods_image:'../../images/index-comming-goods-bitmap.png'}}"></image>
+					<view class="detail i-flex-item">
+						<view class="spuName">
+							<text>{{item.goods_name}}</text>
+						</view>
+						<view class="tips">
+							<span>商品数量：{{item.goods_count}}</span>
+							<block wx:if="{{item.sku_str}}">
+								<span class="last">规格：{{item.sku_str}}</span>
+							</block>
+						</view>
+					</view>
+				</view>
+			</view>
+		</block>
+		<block wx:if="{{!noMore}}">
+			<i-load-more iClass="loadMore" loading="{{loadMore}}" tip="{{loadText}}"></i-load-more>
+		</block>
+	</view>
+</block>
+<block wx:if="{{noData}}">
+	<i-empty>暂无记录~</i-empty>
+</block>
+<view class="bottom-bar {{isIpx?'pb20':''}}">
+	<view class="flex">
+		<block wx:if="{{list.length>0&&state==1}}" >			<label class="btn">确认收货<button hidden bindtap="signAll"></button>
+			</label>
+		</block>
+		<block wx:elif="{{state==0}}">
+			<view class="btn btn-disabled">待配送</view>
+		</block>
+		<block wx:else>
+			<view class="btn btn-disabled">已送达</view>
+		</block>
+	</view>
+</view>

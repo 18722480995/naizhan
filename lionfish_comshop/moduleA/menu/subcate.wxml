@@ -1,0 +1,15 @@
+<view class="cate bg-f">
+	<block wx:for="{{subCate}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+		<view class="sub-tit weight">{{item.name}}</view>
+		<block wx:if="{{item.sub_cate.length}}">
+			<view class="sub-list i-flex">
+				<block wx:for="{{item.sub_cate}}" wx:key="{{idx}}" wx:for-item="sub" wx:for-index="idx" >
+					<view bindtap="goList" class="item" data-id="{{sub.id}}" data-name="{{item.name}}">
+						<i-img defaultImage="../../images/placeholder-refund.png" height="122" iClass="img" loadImage="{{sub.logo}}" width="122"></i-img>
+						<text class="name text-overflow1">{{sub.name}}</text>
+					</view>
+				</block>
+			</view>
+		</block>
+	</block>
+</view>

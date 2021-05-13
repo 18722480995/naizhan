@@ -1,0 +1,60 @@
+<view class="goods-manage {{isIpx?'pb80':''}}">
+	<view class="list">
+		<block wx:if="{{goods.length}}" >
+			<view>
+				<block wx:for="{{goods}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+					<view class="order-item">
+						<view class="order-title">
+							<label class="check-box-content">
+								<checkbox-group bindchange="checkboxChange" data-index="{{index}}" data-type="item">
+									<view class="check-box">
+										<block wx:if="{{item.checked}}" >
+											<image class="checkbox-checked" src="../../images/checkbox-checked.png"></image>
+										</block>
+										<block wx:else>
+											<image class="checkbox-disabled" src="../../images/checkbox-disabled.png"></image>
+										</block>
+										<checkbox hidden checked="{{item.checked}}" value="{{index}}"></checkbox>
+									</view>
+								</checkbox-group>
+							</label>
+							<view class="goods-item">
+								<view class="goods-img">
+									<component-img defaultImage="../../images/placeholder-refund.png" height="60" loadImage="{{item.image}}" width="60"></component-img>
+								</view>
+								<view class="goods-detail">
+									<view class="goods-title">{{item.name}}</view>
+								</view>
+							</view>
+							<view class="order-status">{{item.status_name}}</view>
+						</view>
+					</view>
+				</block>
+			</view>
+		</block>
+		<block wx:else>
+			<view class="no-list">暂无数据</view>
+		</block>
+	</view>
+	<view class="bottom-bar {{isIpx?'pb20':''}}">
+		<label class="check-box-content">
+			<checkbox-group bindchange="checkboxChange" data-type="all">
+				<view class="check-box">
+					<block wx:if="{{checkedAll&&goods.length>0}}" >						<image class="checkbox-checked" src="../../images/checkbox-checked.png"></image>
+					</block>
+					<block wx:else>
+						<image class="checkbox-disabled" src="../../images/checkbox-disabled.png"></image>
+					</block>
+					<checkbox hidden checked="{{checkedAll&&goods.length>0}}" value="{{index}}"></checkbox>
+				</view>
+			</checkbox-group>全选		</label>
+		<view class="flex">
+			<view class="total">合计：<span>{{checkedCount}}条</span>
+			</view>
+			<label class="btn">上架<button hidden bindtap="signAll"></button>
+			</label>
+			<label class="btn gray">下架<button hidden bindtap="signAll"></button>
+			</label>
+		</view>
+	</view>
+</view>

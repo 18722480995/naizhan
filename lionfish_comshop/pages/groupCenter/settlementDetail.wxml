@@ -1,0 +1,56 @@
+<view>
+	<view class="settlementDetail">
+		<scroll-view scrollY bindscrolltolower="getMoreList" style="height: {{containerHeight}}px">
+			<view class="header">
+				<view class="title">
+					<text>佣金结算单号（{{orderDetail.disSettleNo}}）</text>
+				</view>
+				<view class="container">
+					<view class="per">
+						<text>结算量</text>
+						<text>{{orderDetail.settleNum}}</text>
+					</view>
+					<view class="per">
+						<text>结算金额</text>
+						<text>￥{{orderDetail.totalAmount/100}}</text>
+					</view>
+					<block wx:if="{{orderDetail.payNo!=null}}">
+						<view class="per">
+							<text>微信支付单号</text>
+							<text>{{orderDetail.payNo}}</text>
+						</view>
+					</block>
+					<view class="per">
+						<text>结算日期</text>
+						<text>{{orderDetail.createTime}}</text>
+					</view>
+				</view>
+			</view>
+			<view>
+				<block wx:for="{{rewardList}}" wx:key="index" wx:for-item="item" wx:for-index="index" >
+					<view class="main">
+						<view class="title">
+							<text class="date">{{item.createTime}}</text>
+							<text class="status">{{item.disStatusName}}</text>
+						</view>
+						<view class="figcaption">
+							<view class="figure">
+								<block wx:if="{{item.goodsImage}}" >
+									<image src="{{item.goodsImage}}"></image>
+								</block>
+								<block wx:else>
+									<image src="../../images/goods-detail-bitmap.png"></image>
+								</block>
+							</view>
+							<view class="desc">
+								<view class="goodsName">{{item.spuName}}</view>
+								<view class="goods-detail">团单金额 ￥{{item.totalAmount/100}}<text class="line">|</text>佣金 ￥{{item.orderCommission/100}}								</view>
+							</view>
+						</view>
+					</view>
+				</block>
+				<component-load-more loading="{{LoadingComplete}}" tip="{{loadText}}"></component-load-more>
+			</view>
+		</scroll-view>
+	</view>
+</view>

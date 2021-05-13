@@ -1,0 +1,40 @@
+<view class="wrap">
+	<view class="charge-form">
+		<view class="tit">
+			<view>余额:</view>
+			<navigator class="details" hoverClass="none" url="/lionfish_comshop/pages/user/rechargeDetails">明细</navigator>
+		</view>
+		<view class="charge-yue">{{accountMoney}}</view>
+	</view>
+	<view class="charge-form">
+		<view class="tit">
+			<view>充值金额:</view>
+		</view>
+		<block wx:if="{{chargetype_list.length}}">
+			<view class="list">
+				<block wx:for="{{chargetype_list}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+					<view bindtap="selChargeType" class="list-item {{activeTypeId==item.id?'item-hover':''}}" data-idx="{{index}}">
+						<view class="item-tit">{{item.money}}元</view>
+						<block wx:if="{{item.send_money>0}}">							<view class="item-subtit">充{{item.money}}送{{item.send_money}}</view>
+						</block>
+					</view>
+				</block>
+				<view class="list-item_empty"></view>
+				<view class="list-item_empty"></view>
+				<view class="list-item_empty"></view>
+			</view>
+		</block>
+		<view class="flex-ipt">
+			<input bindblur="bindIptBlur" bindfocus="bindIptFocus" bindinput="getMoney" class="money" maxlength="15" min="0" placeholder="输入金额" step="0.01" type="digit" value="{{money}}"></input>
+			<view class="bottom-line {{onFocus?'ipt-focus':''}}"></view>
+		</view>
+	</view>
+	<view bindtap="wxcharge" class="btn {{canPay?'':'disable'}}">确认充值</view>
+	<view class="desc">
+		<view class="h2">充值说明：</view>
+		<view class="wxParse">
+			<!-- <parser html="{{member_charge_publish}}"></parser> -->
+      <rich-text nodes="{{member_charge_publish}}"></rich-text>
+		</view>
+	</view>
+</view>

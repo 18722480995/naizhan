@@ -1,0 +1,17 @@
+
+<block wx:if="{{item.data}}">
+	<view>
+		<view class="fui-menu-group" style="{{item.style.background?'background:'+item.style.background+';':''}}{{item.style.margintop?('margin-top:')+item.style.margintop/2+'px;':''}}">
+			<block wx:for="{{item.data}}" wx:key="nav" wx:for-item="item" wx:for-index="idx" >
+				<navigator class="fui-menu-item" url="{{item.linkurl}}">
+					<view>
+						<block wx:if="{{item.iconclass}}">
+							<span class="icox {{item.iconclass}}" style="padding-right:10rpx;{{item.iconcolor?'color:'+item.iconcolor+';':''}}"></span>
+						</block>
+						<text style="{{item.textcolor?'color:'+item.textcolor+';':''}}">{{item.text}}</text>
+					</view>
+				</navigator>
+			</block>
+		</view>
+	</view>
+</block>

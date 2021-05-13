@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "员工信息",
+    "usingComponents": {
+        "i-auth": "../../components/auth/index",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

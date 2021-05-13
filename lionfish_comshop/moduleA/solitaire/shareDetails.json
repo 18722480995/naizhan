@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "接龙详情",
+    "usingComponents": {
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

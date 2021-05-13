@@ -1,0 +1,9 @@
+{
+    "navigationBarBackgroundColor": "#fe8464",
+    "navigationBarTitleText": "我的钱包",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+        "i-dialog": "../../components/dialog/index",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "工商资质",
+    "usingComponents": {
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "navigationBarBackgroundColor": "#FFF",
+    "navigationBarTitleText": "推荐二维码",
+    "usingComponents": {
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

@@ -1,0 +1,43 @@
+<view class="wrap">
+	<block wx:for="{{rushList}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+		<block wx:if="{{rushList.length}}">
+			<view class="cate-list">
+				<block wx:if="{{index==0&&item.cate_info.banner}}">
+					<image class="topic-img" mode="widthFix" src="{{item.cate_info.banner}}"></image>
+				</block>
+				<view class="cate-title">
+					<block wx:if="{{item.cate_info.logo}}">
+						<image class="title-img" mode="widthFix" src="{{item.cate_info.logo}}"></image>
+					</block>
+				</view>
+				<view class="list">
+					<block wx:for="{{item.list}}" wx:key="idx" wx:for-item="goodsItem" wx:for-index="idx" >
+						<block wx:if="{{item.list.length}}">
+							<i-rush-spu bind:authModal="authModal" bind:changeCartNum="changeCartNum" bind:openSku="openSku" bind:vipModal="vipModal" class="item" needAuth="{{needAuth}}" reduction="{{reduction}}" spuItem="{{goodsItem}}" stopClick="{{stopClick}}" width250="true"></i-rush-spu>
+						</block>
+					</block>
+				</view>
+				<block wx:if="{{(!loadOver&&!showEmpty)&&loadMore}}">
+					<i-load-more iClass="loadMore" loading="{{loadMore}}" tip="{{loadText}}"></i-load-more>
+				</block>
+			</view>
+		</block>
+	</block>
+	<block wx:if="{{showEmpty}}">
+		<view class="none-rush-list">
+			<image class="img-block" src="../../images/icon-index-empty.png"></image>
+			<view class="h1">暂时没有团购</view>
+			<view class="h2">我们正在为您准备更优惠的团购</view>
+		</view>
+	</block>
+	<block wx:if="{{is_show_cate_tabbar!=1}}">
+		<i-cart-btn cartNum="{{cartNum}}" iClass="{{is_show_cate_tabbar==1?'cartBtn':''}}"></i-cart-btn>
+	</block>
+	<i-aside-btn showContact="{{is_show_cate_tabbar==1}}" showHome="{{is_show_cate_tabbar!=1}}" showShare="true"></i-aside-btn>
+	<block wx:if="{{is_show_cate_tabbar==1}}">
+		<i-tabbar cartNum="{{cartNum}}" class="tabbar {{isIpx?'pb20':''}}" currentIdx="-1"></i-tabbar>
+	</block>
+</view>
+<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" needAuth="{{needAuth&&showAuthModal}}"></i-new-auth>
+<sku bind:cancel="closeSku" bind:changeCartNum="changeCartNum" bind:vipModal="vipModal" cur_sku_arr="{{cur_sku_arr}}" goodsid="{{addCar_goodsid}}" sku="{{sku}}" skuList="{{skuList}}" sku_val="{{sku_val}}" visible="{{visible}}"></sku>
+<i-vip-modal imgUrl="{{pop_vipmember_buyimage}}" visible="{{showVipModal}}"></i-vip-modal>

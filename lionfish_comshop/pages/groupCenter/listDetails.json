@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+        "i-load-more": "../../components/load-more/index",
+        "i-empty": "../../components/empty/index",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

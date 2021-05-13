@@ -1,0 +1,9 @@
+
+<view class="report-status">
+	<mp-navigation-bar back="true" color="#ffffff" extClass="mode__navigation-bar"></mp-navigation-bar><mp-msg title="已成功提交投诉" type="success">
+		<view slot="desc">核实投诉内容后我们将及时反馈结果</view>
+		<view slot="handle">
+			<view bindtap="completeReport" class="weui-btn weui-btn_default">我知道了</view>
+		</view>
+	</mp-msg>
+</view>

@@ -1,0 +1,88 @@
+<import  src="/lionfish_comshop/footer_shop.wxml"  />
+<block wx:if="{{loadover}}">
+	<view class="{{theme_type}}">
+		<view class="section">
+			<scroll-view enableBackToTop scrollY bindscrolltolower="loadMore" bindscrolltoupper="pullRefresh" class="scroll-wrapper" upperThreshold="50">
+				<block wx:for="{{list}}" wx:key="{{item.id}}" wx:for-item="item" wx:for-index="index" >
+					<view class="list-item">
+						<view class="avatar">
+							<image mode="widthFix" src="{{item.avatar}}"></image>
+						</view>
+						<view class="content">
+							<view class="nickname">{{item.uname}}</view>
+							<view class="message">{{item.title}}</view>
+							<view class="show-img">
+								<block wx:if="{{item.content.length==1}}" >
+									<view class="ul img-one">
+										<block wx:for="{{item.content}}" wx:key="{{idx}}" wx:for-item="item" wx:for-index="idx" >
+											<view bindtap="previewImg" class="li" data-imgidx="{{idx}}" data-listidx="{{index}}">
+												<image lazyLoad bindload="imageLoad" data-index="{{index}}" mode="aspectFill" src="{{item}}" style="width:{{images[index].width}}rpx; height:{{images[index].height}}rpx;"></image>
+											</view>
+										</block>
+									</view>
+								</block>
+								<block wx:elif="{{item.content.length==4}}">
+									<view class="ul img-four">
+										<block wx:for="{{item.content}}" wx:key="{{idx}}" wx:for-item="item" wx:for-index="idx" >
+											<view bindtap="previewImg" class="li" data-imgidx="{{idx}}" data-listidx="{{index}}">
+												<image lazyLoad mode="aspectFill" src="{{item}}"></image>
+											</view>
+										</block>
+									</view>
+								</block>
+								<block wx:else>
+									<view class="ul img-other">
+										<block wx:for="{{item.content}}" wx:key="{{idx}}" wx:for-item="item" wx:for-index="idx" >
+											<block wx:if="{{item.content}}">
+												<view bindtap="previewImg" class="li" data-imgidx="{{idx}}" data-listidx="{{index}}">
+													<image lazyLoad mode="aspectFill" src="{{item}}"></image>
+												</view>
+											</block>
+										</block>
+									</view>
+								</block>
+							</view>
+							<view bindtap="gotoGoods" data-gid="{{item.goods_id}}">
+								<block wx:if="{{item.goods_info}}">
+									<view class="goods s-flex">
+										<view class="goods-cover">
+											<image mode="widthFix" src="{{item.goods_info.image}}"></image>
+										</view>
+										<view class="goods-name">
+											<view class="goods-title">{{item.goods_info.name}}</view>
+											<view class="goods-price">¥{{item.goods_info.price}}</view>
+										</view>
+									</view>
+								</block>
+								<block wx:if="{{item.goods_info}}">
+									<view class="buy s-flex">
+										<view class="buy-avatars s-flex-1">
+											<block wx:for="{{item.goods_info.buy_user}}" wx:key="{{buyIdx}}" wx:for-item="buyItem" wx:for-index="buyIdx" >
+												<image mode="aspectFill" src="{{buyItem.avatar}}"></image>
+											</block>
+											<block wx:if="{{item.goods_info.seller_count>=5}}">												<text class="buy-num">{{item.goods_info.seller_count}}人购买</text>
+											</block>
+										</view>
+										<view class="buy-btn">我也要</view>
+									</view>
+								</block>
+							</view>
+						</view>
+					</view>
+				</block>
+				<block wx:if="{{is_more}}" >
+					<view class="tips">正在加载...</view>
+				</block>
+				<block wx:else>
+					<view class="tips">^_^已经到底了</view>
+				</block>
+			</scroll-view>
+		</view>
+		<template  data="{{tablebar:tablebar}}" is="footer" />
+		<block wx:if="{{can_post}}">
+			<view bindtap="goPost" class="add_post">
+				<text class="m-icon m-icon-add_post"></text>
+			</view>
+		</block>
+	</view>
+</block>

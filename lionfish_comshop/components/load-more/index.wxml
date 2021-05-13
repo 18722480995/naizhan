@@ -1,0 +1,16 @@
+<view class="i-class i-load-more {{loading?'':'i-load-more-line'}}">
+	<block wx:if="{{loading}}">
+		<view class="i-load-more-loading"></view>
+	</block>
+	<view class="i-load-more-tip">
+		<block wx:if="{{tip!==''}}" >
+			<view>{{tip}}</view>
+		</block>
+		<block wx:elif="{{tip===''&&loading}}">
+			<view>正在加载</view>
+		</block>
+		<block wx:else>
+			<view class="i-load-more-empty"></view>
+		</block>
+	</view>
+</view>

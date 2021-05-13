@@ -1,0 +1,62 @@
+
+<!--   pinrow    -->
+<template name="pinrow">
+		<block wx:if="{{(pinList.list&&pinList.list.length)&&pinList.showRow==1}}">
+			<view class="pin-spec">
+				<block wx:if="{{pinList.img}}">
+					<image bindtap="goLink" class="pin-spec-img" data-link="/lionfish_comshop/moduleA/pin/index" mode="widthFix" src="{{pinList.img}}"></image>
+				</block>
+				<view class="pinrow-wrap">
+					<block wx:for="{{pinList.list}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+						<view class="border-bottom">
+							<i-router-link routerClass="spu-content" url="/lionfish_comshop/moduleA/pin/goodsDetail?&id={{item.actId}}">
+								<view class="item-top">
+									<i-img defaultImage="{{placeholdeImg?placeholdeImg:'../../images/placeholder-refund.png'}}" height="240" iClass="spu-img" lazyLoad="true" loadImage="{{item.bigImg?item.bigImg:item.skuImage}}" width="300"></i-img>
+									<block wx:if="{{item.is_video}}">
+										<view class="spu-play">
+											<image class="img" src="../../images/play.png"></image>
+										</view>
+									</block>
+								</view>
+								<view class="item-bottom">
+									<view class="spu-title">
+										<text class="span">{{item.spuName}}</text>
+									</view>
+									<block wx:if="{{spuItem.spuDescribe}}">
+										<view class="spu-desc">
+											<text class="em">{{item.spuDescribe}}</text>
+										</view>
+									</block>
+									<view class="spu-count">
+										<text class="pin-tag">{{item.pin_count}}人团</text>
+										<view>已拼{{item.soldNum}}件</view>
+									</view>
+									<view class="spu-price">
+										<view class="sale-price">
+											<text class="span">¥{{item.actPrice[0]}}</text>.{{item.actPrice[1]}}										</view>
+										<view class="market-price">¥{{item.danPrice}}</view>
+									</view>
+								</view>
+								<block wx:if="{{!isPast}}">
+									<block wx:if="{{item.spuCanBuyNum==0}}" >
+										<i-button disabled="{{item.spuCanBuyNum==0}}" iClass="add-cart-disabled">已抢光</i-button>
+									</block>
+									<block wx:else>
+										<i-button bind:click="goLink" class="add-cart" iClass="add-cart">去拼团</i-button>
+									</block>
+								</block>
+								<block wx:if="{{spuItem.spuCanBuyNum==0?'disabled':''}}">
+									<view class="mask"></view>
+								</block>
+								<block wx:if="{{item.spuCanBuyNum==0}}">
+									<view class="act-end act-out">已抢光</view>
+								</block>
+							</i-router-link>
+						</view>
+					</block>
+				</view>
+				<view bindtap="goLink" class="pin-more" data-link="/lionfish_comshop/moduleA/pin/index">查看全部<text class="iconfont icon-youjiantou fsz-22"></text>
+				</view>
+			</view>
+		</block>
+	</template>

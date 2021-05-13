@@ -1,0 +1,155 @@
+
+<block wx:if="{{isGetRoomDynamicInfoSuccess===false}}" >
+	<view class="live-bottom-page__backup-cover__image"></view>
+</block>
+<block wx:else>
+	<view class="{{isIPhoneX?'live-player live-player__bottom-area-safe':'live-player'+(!topToast&&showPushComment?' live-player__operation':'')}}">
+		<block wx:if="{{(!topToast&&showLivePlayer)&&((curLiveStatusCode===allLiveStatusCode.LIVE_STATUS_LIVE||curLiveStatusCode===allLiveStatusCode.LIVE_STATUS_PAUSE)||curLiveStatusCode===allLiveStatusCode.LIVE_STATUS_ERROR)}}">
+			<view class="live-page-0 live-bottom-page__playing">
+				<live-player autoplay _useSimulatedPictureInPicture="{{!closePictureInPictureMode}}" autoPauseIfNavigate="{{!closePictureInPictureMode}}" autoPauseIfOpenNative="{{!closePictureInPictureMode}}" bindnetstatus="onLivePlayerNetStatus" bindrendererror="onLivePlayerRenderError" bindstatechange="onLivePlayerStateChange" class="{{!isLivePlaying?'live-player-component__ready':'live-player-plugin'}}" id="live-player-context" maxCache="5" minCache="3" objectFit="fillCrop" pictureInPictureMode="{{!closePictureInPictureMode?pictureInPictureMode:''}}" simulatedPictureInPicturePoster="{{!closePictureInPictureMode?roomStaticInfo.room_img:''}}" src="{{livePlayUrl}}"></live-player>
+			</view>
+		</block>
+		<block wx:if="{{showLoading||curLiveStatusCode!==allLiveStatusCode.LIVE_STATUS_LIVE}}">
+			<view class="{{'live-page-0 live-bottom-page__cover '+(!roomStaticInfo.room_img?'live-bottom-page__backup-cover':'')}}">
+				<block wx:if="{{roomStaticInfo.room_img}}">
+					<view class="live-bottom-page__cover__image" style="background: url({{roomStaticInfo.room_img}}) no-repeat center; background-size: cover"></view>
+				</block>
+			</view>
+		</block>
+		<block wx:if="{{(curLiveStatusCode===allLiveStatusCode.LIVE_STATUS_LIVE||curLiveStatusCode===allLiveStatusCode.LIVE_STATUS_PAUSE)||curLiveStatusCode===allLiveStatusCode.LIVE_STATUS_ERROR}}">
+			<view class="live-page-1 live-player-room">
+				<view class="live-player-room__inner">
+					<view class="live-player-normal__head live-player-room__head">
+						<mp-navigation-bar back="{{!showGobackHome}}" bindtap="navigateBack" color="#ffffff" extClass="mode__navigation__with__custom mode__navigation__with__white-icon navigation__with__profile {{showGobackHome?' mode__navigation__with__home-icon':''}}">
+							<view class="navigation_right" slot="right">
+								<button class="button__share" openType="share" size="mini">
+									<view class="button__share__icon"></view>
+								</button>
+								<view class="watermark"></view>
+							</view>
+							<view class="mode__navigation__inner__with-home" slot="left">
+								<block wx:if="{{showGobackHome}}">
+									<view bindtap="gobackHome" class="goback__home__icon"></view>
+								</block>
+								<component-profile-card bindcustomevent="bindCustomEvent" from="player" isSubscribe="{{isSubscribe}}" liveStat="{{liveStat}}" liveStatSimulateWatch="{{liveStatSimulateWatch}}" weappImg="{{roomStaticInfo.weapp_img}}" weappName="{{roomStaticInfo.weapp_name}}"></component-profile-card>
+								<mp-lottery bindcustomevent="bindCustomEvent" class="mode__lottery" countTime="{{lotteryCountTime}}" endLotteryAnimation="{{endLotteryAnimation}}" firstStartLotteryAnimation="{{firstStartLotteryAnimation}}" from="player" nextStartLotteryAnimation="{{nextStartLotteryAnimation}}" showCountTime="{{showLotteryCountTime}}" showEndIcon="{{showEndLotteryIcon}}" style="{{showLotteryIcon&&!showStoreList?'':'position: absolute; bottom: -900px;'}}" type="{{lotteryType}}"></mp-lottery>
+							</view>
+						</mp-navigation-bar>
+					</view>
+					<view class="live-player-room__body" style="{{topToast||showStoreList?'position: absolute; bottom: -900px;':'position: static;'}}">
+						<view class="{{'live-player-room__body__msg-list '+(showStorePush&&(topToast&&showPushComment)?'live-player-room__body__msg-list__with-store ':'')+(!topToast&&showPushComment?'live-player-room__body__msg-list__with-push-comment':'')}}" style="margin-bottom: {{(commentKeyboardHeight&&!topToast)&&showPushComment?commentKeyboardHeight:0}}px">
+							<block wx:if="{{topToast&&showPushComment}}">
+								<component-activity-card class="mod-activity-card" openid="{{roomStaticInfo.openid}}" systemTriggerBarrageList="{{systemTriggerBarrageList}}"></component-activity-card>
+							</block>
+							<component-comments bindcustomevent="bindCustomEvent" class="mod-comments {{(!topToast&&showPushComment)&&!showLotteryOper?'layer_top':''}}" commentList="{{commentList}}" commentScrollIntoView="{{commentScrollIntoView}}" from="player" hasStaticHeight="{{(showLotteryIcon&&!showStoreList)&&((commentKeyboardHeight&&!topToast)&&showPushComment)?windowHeight-commentKeyboardHeight-305>300?300:windowHeight-commentKeyboardHeight-305:0}}" newNotifyCount="{{newNotifyCount}}"></component-comments>
+							<block wx:if="{{showStorePush&&(topToast&&showPushComment)}}">
+								<component-activity-store-card avatar="{{storePush.cover_img_url}}" bindcustomevent="bindCustomEvent" class="mod__activity-store-card" from="player" price="{{storePush.price}}" priceType="{{storePush.price_type}}" price2="{{storePush.price2}}" title="{{storePush.name}}" url="{{storePush.url}}"></component-activity-store-card>
+							</block>
+							<block wx:if="{{(!topToast&&showPushComment)&&!showLotteryOper}}">
+								<component-push-comment bindcustomevent="bindCustomEvent" bindkeyboardheightchange="bindKeyboardHeightChange" class="mode-push-comment-outside" maxlength="30" placeholder="跟主播说点什么…" roomId="{{room_id}}"></component-push-comment>
+							</block>
+						</view>
+						<view class="{{'live-player-normal__operation live-player-room__body__operation '+(!topToast&&showPushComment?'live-player-room__body__operation__hidden':'')}}">
+							<component-person-operation bindcustomevent="bindCustomEvent" from="player" leftLotteryTime="{{leftLotteryTime}}" liveStatSimulateLike="{{liveStatSimulateLike}}" participateType="{{lotteryPush.participate_type}}"></component-person-operation>
+						</view>
+					</view>
+					<view class="live-player-room__body live-player-room__body__store-list" hidden="{{topToast||!showStoreList}}">
+						<component-store-list bindcustomevent="bindCustomEvent" from="player" showStoreList="{{showStoreList}}" storeList="{{storeList}}" storeListStatus="{{storeListStatus}}"></component-store-list>
+					</view>
+				</view>
+			</view>
+		</block>
+		<block wx:if="{{curLiveStatusCode===allLiveStatusCode.LIVE_STATUS_NOT_START||curLiveStatusCode===allLiveStatusCode.LIVE_STATUS_FORBID}}">
+			<view class="live-page-1 live-page-2col live-player-countdown live-bottom-page__cover__image__cover">
+				<view class="live-page-2col__inner live-player-countdown__inner">
+					<view class="live-player-normal__head live-player-countdown__head">
+						<mp-navigation-bar back="{{!showGobackHome}}" color="#ffffff" extClass="mode__navigation__with__custom mode__navigation__with__white-icon navigation__with__profile {{showGobackHome?' mode__navigation__with__home-icon':''}}">
+							<view class="navigation_right" slot="right">
+								<button class="button__share" openType="share" size="mini">
+									<view class="button__share__icon"></view>
+								</button>
+								<view class="watermark"></view>
+							</view>
+							<view class="mode__navigation__inner__with-home" slot="left">
+								<block wx:if="{{showGobackHome}}">
+									<view bindtap="gobackHome" class="goback__home__icon"></view>
+								</block>
+								<component-profile-card bindcustomevent="bindCustomEvent" from="player" isSubscribe="{{isSubscribe}}" liveStat="{{liveStat}}" liveStatSimulateWatch="{{liveStatSimulateWatch}}" weappImg="{{roomStaticInfo.weapp_img}}" weappName="{{roomStaticInfo.weapp_name}}"></component-profile-card>
+							</view>
+						</mp-navigation-bar>
+					</view>
+					<block wx:if="{{(((!topToast&&showCountdownTime)&&!showLoading)&&!showPushComment)&&!showStoreList}}">
+						<view class="live-player-main">
+							<component-count-time bindcustomevent="bindCustomEvent" countdownTime="{{countdownTime}}" countdownTimeContent="{{countdownTimeContent}}" from="player" isSubscribe="{{isSubscribe}}"></component-count-time>
+						</view>
+					</block>
+					<view class="live-player-room__body" style="{{topToast||showStoreList?'position: absolute; bottom: -900px;':'position: static;'}}">
+						<view class="{{'live-player-room__body__msg-list '+(showStorePush&&(topToast&&showPushComment)?'live-player-room__body__msg-list__with-store':'')+(!topToast&&showPushComment?'live-player-room__body__msg-list__with-push-comment':'')}}" style="margin-bottom: {{(commentKeyboardHeight&&!topToast)&&showPushComment?commentKeyboardHeight-10:0}}px">
+							<component-comments bindcustomevent="bindCustomEvent" class="mod-comments {{(!topToast&&showPushComment)&&!showLotteryOper?'layer_top':''}}" commentList="{{commentList}}" commentScrollIntoView="{{commentScrollIntoView}}" enterRoomCommentList="{{enterRoomCommentList}}" from="player" newNotifyCount="{{newNotifyCount}}"></component-comments>
+							<block wx:if="{{showStorePush&&(topToast&&showPushComment)}}">
+								<component-activity-store-card avatar="{{storePush.cover_img_url}}" bindcustomevent="bindCustomEvent" class="mod__activity-store-card" from="player" price="{{storePush.price}}" priceType="{{storePush.price_type}}" price2="{{storePush.price2}}" title="{{storePush.name}}" url="{{storePush.url}}"></component-activity-store-card>
+							</block>
+							<block wx:if="{{(!topToast&&showPushComment)&&!showLotteryOper}}">
+								<component-push-comment bindcustomevent="bindCustomEvent" bindkeyboardheightchange="bindKeyboardHeightChange" class="mode-push-comment-outside" maxlength="30" placeholder="跟主播说点什么…" roomId="{{room_id}}"></component-push-comment>
+							</block>
+						</view>
+						<view class="{{'live-player-room__body__operation '+(!topToast&&showPushComment?'live-player-room__body__operation__hidden':'')}}">
+							<component-person-operation bindcustomevent="bindCustomEvent" from="player" leftLotteryTime="{{leftLotteryTime}}" liveStatSimulateLike="{{liveStatSimulateLike}}" participateType="{{lotteryPush.participate_type}}"></component-person-operation>
+						</view>
+					</view>
+					<view class="live-player-room__body live-player-room__body__store-list" hidden="{{topToast||!showStoreList}}">
+						<component-store-list bindcustomevent="bindCustomEvent" from="player" showStoreList="{{showStoreList}}" storeList="{{storeList}}" storeListStatus="{{storeListStatus}}"></component-store-list>
+					</view>
+				</view>
+			</view>
+		</block>
+		<block wx:if="{{curLiveStatusCode===allLiveStatusCode.LIVE_STATUS_END}}">
+			<view class="live-page-1 live-player-end live-bottom-page__cover__image__cover">
+				<view class="live-player-end__inner">
+					<view class="live-player-normal__head live-player-end__head">
+						<mp-navigation-bar back="{{!showGobackHome}}" color="#ffffff" extClass="mode__navigation__with__custom mode__navigation__with__white-icon navigation__with__profile {{showGobackHome?' mode__navigation__with__home-icon':''}}">
+							<view class="navigation_right" slot="right">
+								<button class="button__share" openType="share" size="mini">
+									<view class="button__share__icon"></view>
+								</button>
+								<view class="watermark"></view>
+							</view>
+							<view class="mode__navigation__inner__with-home" slot="left">
+								<block wx:if="{{showGobackHome}}">
+									<view bindtap="gobackHome" class="goback__home__icon"></view>
+								</block>
+								<component-profile-card bindcustomevent="bindCustomEvent" from="player" isSubscribe="{{isSubscribe}}" liveStat="{{liveStat}}" liveStatSimulateWatch="{{liveStatSimulateWatch}}" weappImg="{{roomStaticInfo.weapp_img}}" weappName="{{roomStaticInfo.weapp_name}}"></component-profile-card>
+								<block wx:if="{{showLotteryIcon}}">
+									<mp-lottery bindcustomevent="bindCustomEvent" class="mode__lottery" countTime="{{lotteryCountTime}}" endLotteryAnimation="{{endLotteryAnimation}}" firstStartLotteryAnimation="{{firstStartLotteryAnimation}}" from="player" nextStartLotteryAnimation="{{nextStartLotteryAnimation}}" showCountTime="{{showLotteryCountTime}}" showEndIcon="{{showEndLotteryIcon}}" type="{{lotteryType}}"></mp-lottery>
+								</block>
+							</view>
+						</mp-navigation-bar>
+					</view>
+					<block wx:if="{{!topToast}}">
+						<view class="live-player-normal__body live-player-end__body" style="bottom: {{uiEndBlockListBottom?uiEndBlockListBottom+'px':null}}">
+							<component-end-block from="player" liveDuration="{{liveDuration}}" liveStat="{{liveStat}}" liveStatSimulateLike="{{liveStatSimulateLike}}" liveStatSimulateWatch="{{liveStatSimulateWatch}}"></component-end-block>
+						</view>
+					</block>
+					<view class="live-player-room__body live-player-room__body__store-list">
+						<component-store-list bindcustomevent="bindCustomEvent" from="player" height="{{uiStoreListHeight}}" storeList="{{storeList}}" storeListStatus="{{storeListStatus}}" storeRankList="{{storeRankList}}" type="end"></component-store-list>
+					</view>
+				</view>
+			</view>
+		</block>
+	</view>
+</block>
+<block wx:if="{{(!((topToast||showLoading)||showPushComment)||showStoreList)&&toast}}">
+	<view class="live-page-status__msg live-page-toast">{{toast}}</view>
+</block>
+<block wx:if="{{(!(topToast||showPushComment)||showStoreList)&&showLoading}}">
+	<view class="live-page-loading icon_loading"></view>
+</block>
+<block wx:if="{{(!showPushComment||showStoreList)&&topToast}}">
+	<view class="live-page-status__msg live-page-top-toast">{{topToast}}</view>
+</block>
+<block wx:if="{{showProfileModal&&!showLotteryOper}}">
+	<component-profile-modal anchorName="{{roomStaticInfo.anchor_name}}" bindcustomevent="bindCustomEvent" class="mod-profile-modal" from="player" isSubscribe="{{isSubscribe}}" roomTitle="{{roomStaticInfo.room_title}}" weappImg="{{roomStaticInfo.weapp_img}}" weappName="{{roomStaticInfo.weapp_name}}"></component-profile-modal>
+</block>
+<block wx:if="{{showLotteryOper||isTriggerLotteryAddress}}">
+	<mp-lottery-oper bindcustomevent="bindCustomEvent" class="mod-lottery-oper" countTime="{{lotteryCountTime}}" curLuckMen="{{curLotteryLuckMen}}" endLotteryAnimation="{{endLotteryAnimation}}" from="player" historyLuckMen="{{historyLotteryLuckMen}}" isFillAddress="{{isFillLotteryAddress}}" isHistoryFillAddress="{{isHistoryFillLotteryAddress}}" isParticipate="{{isParticipateLottery}}" luckName="{{lotteryPush.name}}" luckNum="{{lotteryPush.luck_limit}}" mySelfLuckMen="{{mySelfLotteryLuckMen}}" mySelfOpenid="{{roomStaticInfo.openid}}" obtainType="{{lotteryPush.obtain_type}}" participateNum="{{lotteryParticipateNum}}" participateType="{{lotteryPush.participate_type}}" remark="{{lotteryPush.remark}}" showCountTime="{{showLotteryCountTime}}" type="{{lotteryType}}"></mp-lottery-oper>
+</block>

@@ -1,0 +1,66 @@
+<i-router-link routerClass="spu-content" url="/lionfish_comshop/moduleA/pin/goodsDetail?&id={{spuItem.actId}}">
+	<view class="item-top">
+		<block wx:if="{{spuItem.label_info&&spuItem.label_info.type==0}}">
+			<view class="item-tag">
+				<image class="item-tag-bg" mode="widthFix" src="../../images/tag.png"></image>
+				<view class="tag-name {{spuItem.label_info.len==2?'two-word':''}}">{{spuItem.label_info.tagcontent}}</view>
+			</view>
+		</block>
+		<block wx:if="{{spuItem.label_info&&spuItem.label_info.type==1}}">
+			<view class="item-tag" style="background:url({{spuItem.label_info.tagcontent}}) no-repeat left top;background-size: 100%;"></view>
+		</block>
+		<i-img defaultImage="{{placeholdeImg?placeholdeImg:'../../images/placeholder-refund.png'}}" height="400" iClass="img-class" lazyLoad="true" loadImage="{{spuItem.bigImg?spuItem.bigImg:spuItem.skuImage}}" width="710"></i-img>
+		<block wx:if="{{reduction.is_open_fullreduction==1&&spuItem.is_take_fullreduction==1}}">
+			<view class="spu-active">
+				<view class="tag">满{{reduction.full_money}}减{{reduction.full_reducemoney}}</view>
+				<block wx:if="{{spuItem.isLimit}}">
+					<view class="tag tag-green">限购</view>
+				</block>
+			</view>
+		</block>
+		<block wx:if="{{spuItem.is_video}}">
+			<view class="spu-play">
+				<image class="img" src="../../images/play.png"></image>
+			</view>
+		</block>
+	</view>
+	<view class="item-bottom">
+		<view class="item-right-top">
+			<view class="spu-title">
+				<text class="span">{{spuItem.spuName}}</text>
+			</view>
+			<block wx:if="{{spuItem.spuDescribe}}">
+				<view class="spu-desc">
+					<text class="em">{{spuItem.spuDescribe}}</text>
+				</view>
+			</block>
+		</view>
+		<view class="spu-price">
+			<view class="sale-price">
+				<text class="span">¥{{spuItem.actPrice[0]}}</text>.{{spuItem.actPrice[1]}}			</view>
+			<view class="market-price">¥{{spuItem.danPrice}}</view>
+			<text class="pin-tag">{{spuItem.pin_count}}人团</text>
+		</view>
+		<view class="spu-count">已拼{{spuItem.soldNum}}件</view>
+	</view>
+	<block wx:if="{{!isPast}}">
+		<block wx:if="{{disabled||spuItem.spuCanBuyNum==0}}" >
+			<i-button disabled="{{disabled||spuItem.spuCanBuyNum==0}}" iClass="add-cart-disabled">去开团</i-button>
+		</block>
+		<block wx:elif="{{disabled||actEnd}}">
+			<i-button disabled="{{disabled||actEnd}}" iClass="add-cart-disabled">去开团</i-button>
+		</block>
+		<block wx:else>
+			<i-button bind:click="goLink" iClass="add-cart">去开团</i-button>
+		</block>
+	</block>
+	<block wx:if="{{(isPast||disabled)||spuItem.spuCanBuyNum==0?'disabled':''}}">
+		<view class="mask"></view>
+	</block>
+	<block wx:if="{{spuItem.spuCanBuyNum==0}}" >
+		<view class="act-end act-out">已抢光</view>
+	</block>
+	<block wx:elif="{{actEnd}}">
+		<view class="act-end">已结束</view>
+	</block>
+</i-router-link>

@@ -1,0 +1,8 @@
+{
+    "navigationBarTitleText": "",
+    "navigationBarBackgroundColor": "#FE8464",
+    "usingComponents": {
+        "i-load-more": "../../components/load-more/index",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

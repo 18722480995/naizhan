@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "个人信息",
+    "usingComponents": {
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

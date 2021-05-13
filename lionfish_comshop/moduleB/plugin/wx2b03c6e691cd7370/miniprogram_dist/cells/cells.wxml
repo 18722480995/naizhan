@@ -1,0 +1,9 @@
+
+<view class="{{extClass}}">
+	<block wx:if="{{title}}">
+		<view class="weui-cells__title">{{title}}</view>
+	</block>
+	<view class="weui-cells weui-cells_after-title {{checkboxCount>0&&checkboxIsMulti?'weui-cells_checkbox':''}}">		<slot></slot>
+	</view>
+	<view class="weui-cells__tips" vIf="{{footer}}">{{footer}}</view>
+</view>

@@ -1,0 +1,8 @@
+{
+    "component": true,
+    "usingComponents": {
+        "i-card": "../card/index",
+        "i-money": "../moneyFormat/index",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

@@ -1,0 +1,13 @@
+<block wx:if="{{list.length}}">
+	<view>
+		<block wx:for="{{list}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+			<navigator class="list-item" url="/lionfish_comshop/pages/user/articleProtocol?id={{item.id}}">
+				<span>{{item.title}}</span>
+				<image class="icon-right right-arrow" src="../../images/rightArrowImg.png"></image>
+			</navigator>
+		</block>
+	</view>
+</block>
+<block wx:if="{{noData}}">
+	<i-empty>暂无内容~</i-empty>
+</block>

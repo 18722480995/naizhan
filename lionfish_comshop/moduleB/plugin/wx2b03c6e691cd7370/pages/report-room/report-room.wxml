@@ -1,0 +1,14 @@
+
+<view class="report-room">
+	<mp-navigation-bar back="true" color="#ffffff" extClass="mode__navigation-bar"></mp-navigation-bar>
+	<view class="report-room__head" style="margin-top: {{statusBarHeight+'px'}}">投诉直播间</view>
+	<view class="report-room__body">
+		<mp-cells title="选择投诉类型">
+			<mp-checkbox-group bindchange="selectedReportReasonChange" multi="false" prop="radio">
+				<block wx:for="{{reportItems}}" wx:key="*this" wx:for-item="item" wx:for-index="index" >
+					<mp-checkbox checked="{{item.checked}}" label="{{item.type}}" value="{{item.value}}"></mp-checkbox>
+				</block>
+			</mp-checkbox-group>
+		</mp-cells>
+	</view>
+</view>

@@ -1,0 +1,9 @@
+{
+    "component": true,
+    "usingComponents": {
+        "i-button": "../button/index",
+        "i-img": "../img/index",
+        "i-router-link": "../router-link/router-link",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

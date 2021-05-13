@@ -1,0 +1,34 @@
+<block wx:if="{{list.length&&show_goods_guess_like==1}}">
+	<view class="like i-class">
+		<view class="like-title">——{{likeTitle}}——</view>
+		<view class="like-list">
+			<block wx:for="{{list}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+				<i-router-link routerClass="new-comers-item" url="/lionfish_comshop/pages/goods/goodsDetail?id={{item.actId}}">
+					<i-img defaultImage="../../images/placeholder-refund.png" height="200" iClass="new-img" loadImage="{{item.skuImage}}" width="180"></i-img>
+					<block wx:if="{{item.spuCanBuyNum==0}}">
+						<view class="act-end">已抢光</view>
+					</block>
+					<view class="title">{{item.spuName}}</view>
+					<view class="new-bot">
+						<view class="price">¥{{item.actPrice[0]}}.{{item.actPrice[1]}}</view>
+						<block wx:if="{{item.car_count<=0}}" >
+							<block wx:if="{{disabled||item.spuCanBuyNum==0}}" >
+								<i-button iClass="add-cart">
+									<image class="img" src="../../images/icon-add-shopCart-disabled.png"></image>
+								</i-button>
+							</block>
+							<block wx:else>
+								<i-button bind:click="openSku" data-idx="{{index}}" iClass="add-cart">
+									<image class="img" src="../../images/icon-add-shopCart.png"></image>
+								</i-button>
+							</block>
+						</block>
+						<block wx:else>
+							<i-input-number addImage="../../images/icon-add-2.png" bind:change="changeNumber" bind:outOfMax="outOfMax" iClass="index-input-number" iClassNumberText="input-number-text" idx="{{index}}" max="{{item.spuCanBuyNum}}" min="0" reduceImage="../../images/icon-reduce-2.png" value="{{item.car_count}}"></i-input-number>
+						</block>
+					</view>
+				</i-router-link>
+			</block>
+		</view>
+	</view>
+</block>

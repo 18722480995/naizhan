@@ -1,0 +1,6 @@
+<block wx:if="{{goods_industrial.length>0}}">	<view class="wrap">
+		<block wx:for="{{goods_industrial}}" wx:key="index" wx:for-item="item" wx:for-index="index" >
+			<image class="img" mode="widthFix" src="{{item}}"></image>
+		</block>
+	</view>
+</block>

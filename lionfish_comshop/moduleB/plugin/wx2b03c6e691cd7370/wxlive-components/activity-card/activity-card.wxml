@@ -1,0 +1,14 @@
+
+<view class="activity-card">
+	<view class="activity-card__inner">
+		<view class="{{systemTriggerBarrageItem.type==='store'?'activity-card__item activity-card__item__store':'activity-card__item'}} {{fadeIn?' fadeInOut':' '}}">
+			<view class="activity-card__item__inner">
+				<block wx:if="{{systemTriggerBarrageItem.type==='store'}}">
+					<view class="activity-card__item__icon activity-card__item__icon__store"></view>
+				</block>
+				<text class="activity-card__item__info">
+					<text class="activity-card__item__info__nickname">{{systemTriggerBarrageItem.nickname}}</text>{{systemTriggerBarrageItem.content}}				</text>
+			</view>
+		</view>
+	</view>
+</view>

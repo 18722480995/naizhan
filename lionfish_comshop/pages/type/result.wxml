@@ -1,0 +1,78 @@
+<view class="box">
+	<view class="list">
+		<block wx:for="{{rushList}}" wx:key="actId" wx:for-item="item" wx:for-index="index" >
+			<i-type-item actEnd="{{item.actEnd}}" bind:authModal="authModal" bind:changeCartNum="changeCartNum" bind:openSku="openSku" bind:vipModal="vipModal" needAuth="{{needAuth}}" reduction="{{reduction}}" spuItem="{{item}}" stopClick="{{stopClick}}"></i-type-item>
+		</block>
+		<block wx:if="{{showLoadMore&&!showEmpty}}">
+			<i-load-more iClass="loadMore" loading="{{loadMore}}" tip="{{loadText}}"></i-load-more>
+		</block>
+	</view>
+	<block wx:if="{{showEmpty}}">
+		<view class="none-rush-list">
+			<image class="img-block" src="../../images/icon-index-empty.png"></image>
+			<view class="h1">暂时没有团购</view>
+			<view class="h2">我们正在为您准备更优惠的团购</view>
+		</view>
+	</block>
+	<i-cart-btn cartNum="{{cartNum}}"></i-cart-btn>
+</view>
+<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" needAuth="{{needAuth&&showAuthModal}}" needPosition="true"></i-new-auth>
+<view class="mask" hidden="{{!visible}}"></view>
+<view bind:cancel="close" class="sku-content" hidden="{{!visible}}" scrollUp="true">
+	<view class="sku-card">
+		<view bindtap="closeSku" class="close">
+			<image src="../../images/icon-sku-close.png"></image>
+		</view>
+		<view class="sku-header">
+			<i-img defaultImage="../../images/placeholder-refund.png" height="80" iClass="sku-img" loadImage="{{cur_sku_arr.skuImage}}" width="80"></i-img>
+			<view class="sku-desc">
+				<view class="sku-title">
+					<span>{{cur_sku_arr.spuName}}</span>
+				</view>
+				<view class="sku-price">
+					<view class="sale-price">¥<span>{{cur_sku_arr.actPrice[0]}}</span>.{{cur_sku_arr.actPrice[1]}}					</view>
+					<view class="market-price">¥{{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}</view>
+				</view>
+				<view class="sku-switch-on">已选择：{{cur_sku_arr.spec}}</view>
+			</view>
+		</view>
+		<block wx:for="{{skuList.list}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+			<view class="sku-spec">
+				<view class="title">{{item.name}}</view>
+				<view class="spec-list">
+					<block wx:for="{{item.option_value}}" wx:key="idx" wx:for-item="value" wx:for-index="idx" >
+						<span bindtap="selectSku" class="{{idx==sku[index].idx?'on':''}}" data-disabled="{{item.canBuyNum-value<0}}" data-idx="{{idx}}" data-type="{{index}}_{{idx}}_{{value.option_value_id}}_{{value.name}}">{{value.name}}</span>
+					</block>
+				</view>
+			</view>
+		</block>
+		<view class="sku-num-content">
+			<view class="title">数量</view>
+			<view class="i-class i-input-number i-input-number-size-{{size}}">
+				<view bindtap="setNum" class="i-input-number-minus {{value<=min?'i-input-number-disabled':''}}" data-type="decrease">
+					<image src="../../images/icon-input-reduce.png"></image>
+				</view>
+				<input bindblur="handleBlur" bindfocus="handleFocus" class="i-input-number-text {{min>=max?'i-input-number-disabled':''}}" disabled="true" type="number" value="{{sku_val}}"></input>
+				<view bindtap="setNum" class="i-input-number-plus {{value>=max?'i-input-number-disabled':''}}" data-type="add">					<image src="../../images/icon-input-add.png"></image>
+				</view>
+			</view>
+			<block wx:if="{{skuList[current].isLimit}}" >
+				<view class="msg">
+					<block wx:if="{{skuList[current].limitMemberNum>-1}}">						<span>每人限{{skuList[current].limitMemberNum}}单</span>
+					</block>
+					<block wx:if="{{skuList[current].limitOrderNum>-1}}">						<span>每单限{{skuList[current].limitOrderNum}}份</span>
+					</block>
+					<span></span>
+				</view>
+			</block>
+			<block wx:elif="{{(!skuList[current].isLimit&&skuList[current].canBuyNum-value<=10)&&skuList[current].canBuyNum-value>-1}}">				<view class="even-num">还可以购买 {{skuList[current].canBuyNum-value}} 件</view>
+			</block>
+		</view>
+		<form bindsubmit="gocarfrom" reportSubmit="true">
+			<button class="sku-confirm" disabled="{{cur_sku_arr.stock==0?true:false}}" formType="submit">
+				<view>{{cur_sku_arr.stock==0?'已抢光':'确定'}}</view>
+			</button>
+		</form>
+	</view>
+</view>
+<i-vip-modal imgUrl="{{pop_vipmember_buyimage}}" visible="{{showVipModal}}"></i-vip-modal>

@@ -1,0 +1,36 @@
+
+<view bindtap="clickComments" class="comments has-events" style="height: {{hasStaticHeight?hasStaticHeight+'px':null}}">
+	<scroll-view enableFlex lowerThreshold scrollAnchoring scrollWithAnimation scrollY bindscroll="scrollComment" bindscrolltolower="scrollCommentToBottom" class="comments__inner" scrollIntoView="{{commentScrollIntoView}}" style="max-height: {{hasStaticHeight?hasStaticHeight+'px':null}}">
+		<block wx:for="{{fetchCommentList}}" wx:key="*this" wx:for-item="item" wx:for-index="index" >
+			<view class="comments-item__container">
+				<view class="comments-item" id="comment{{index+1}}">
+					<view class="comments__report__container">
+						<block wx:if="{{showReportCommentList[index]}}">
+							<view bindtap="reportComment" class="comments__report" data-avatar="{{item.avatar||'https://mmbiz.qpic.cn/mmbiz/a5icZrUmbV8p5jb6RZ8aYfjfS2AVle8URwBt8QIu6XbGewB9wiaWYWkPwq4R7pfdsFibuLkic16UcxDSNYtB8HnC1Q/0'}}" data-content="{{item.content}}" data-nickname="{{item.nickname}}" data-openid="{{item.openid}}">{{from==='player'?'投诉':'禁言'}}</view>
+						</block>
+					</view>
+					<view bindlongpress="longPressComments" class="{{item.official?'comments-item__inner comments-item__inner__official':'comments-item__inner'}}" data-index="{{index}}">
+						<view class="{{item.official?'comments-item__inner__inner mode-filter-white':'comments-item__inner__inner mode-filter-black'}}">
+							<view class="comments-item-avatar">
+								<block wx:if="{{item.official}}" >
+									<view class="comments-item-avatar-image"></view>
+								</block>
+								<block wx:else>
+									<image class="comments-item-avatar-image" data-index="{{index}}" data-msgid="{{item.msgId}}" mode="aspectFill" src="{{item.avatar}}"></image>
+								</block>
+							</view>
+							<view class="comments-item__info">
+								<text class="comments-item__nickname">{{item.nickname}}</text>
+								<text class="comments-item__nickname__seperate">：</text>
+								<text class="comments-item__content">{{item.content}}</text>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</block>
+	</scroll-view>
+	<block wx:if="{{showNewNotify&&newNotifyCount}}">
+		<view bindtap="clickNewNotify" class="comments__new__notify">{{newNotifyCount>99?'99+':newNotifyCount}}条新消息</view>
+	</block>
+</view>

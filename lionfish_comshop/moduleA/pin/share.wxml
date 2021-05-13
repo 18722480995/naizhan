@@ -1,0 +1,209 @@
+<view class="pinBox">
+	<block wx:if="{{pin_info.state==1}}">
+		<view class="pinStatus bg-f mb10">
+			<view class="title">
+				<text class="iconfont icon-gou"></text>拼团成功			</view>
+			<block wx:if="{{is_me==1}}" >
+				<view class="tip">
+					<block wx:if="{{order_type!='ignore'}}">已成功下单，可在会员中心<text bindtap="goLink" data-link="/lionfish_comshop/pages/order/order?id={{order_id}}">查看订单</text>
+					</block>
+				</view>
+			</block>
+			<block wx:else>
+				<view class="tip">团长人气太高，已拼团成功啦</view>
+			</block>
+		</view>
+	</block>
+	<view class="goodsInfo">
+		<block wx:if="{{pin_info.state==0}}" >
+			<text class="iconfont icon-pintuanzhong"></text>
+		</block>
+		<block wx:elif="{{pin_info.state==1}}">
+			<text class="iconfont icon-pintuanchenggong"></text>
+		</block>
+		<block wx:elif="{{pin_info.state==2}}">
+			<text class="iconfont icon-pintuanshibai"></text>
+		</block>
+		<i-goods-info goodsInfo="{{goods_info}}"></i-goods-info>
+	</view>
+	<block wx:if="{{((pintuan_model_buy==1&&pintuan_show_community_info==1)&&changeCommunity)&&changeCommunity.communityName}}">
+		<view bindtap="goLink" class="group bg-f mb10" data-link="{{hide_community_change_btn==0?'/lionfish_comshop/pages/position/community':''}}">
+			<view class="group-avatar">
+				<image src="{{changeCommunity.headImg||changeCommunity.disUserHeadImg}}"></image>
+			</view>
+			<view class="group-m">
+				<view class="group-title">{{changeCommunity.communityName}}</view>
+				<view class="group-desc">
+					<text style="color:#333;">取货地址:</text>{{changeCommunity.fullAddress}}				</view>
+			</view>
+			<block wx:if="{{hide_community_change_btn==0}}">
+				<view class="group-r">
+					<image class="group-r-icon" src="../../images/community-right-arrow.png"></image>
+				</view>
+			</block>
+		</view>
+	</block>
+	<view class="pinMember bg-f mb10">
+		<view class="status">
+			<block wx:if="{{pin_info.state==0}}" >
+				<view class="title">仅剩<text class="red">{{surplus}}</text>个名额，团满即可拼团成功				</view>
+				<view class="time">
+					<i-count-down countdownClass="count-down" itemClass="item-time" showDay="true" target="{{seconds}}">
+						<span class="count-down-left-text">仅剩</span>
+					</i-count-down>
+				</view>
+			</block>
+			<block wx:elif="{{pin_info.state==2}}">
+				<view class="failTit red">该团未能按时凑齐人数，拼团失败</view>
+				<view class="tip">退款金额将原路返回</view>
+			</block>
+		</view>
+		<view class="pinMemberList">
+			<block wx:for="{{pin_order_arr}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+				<view class="item">
+					<i-img defaultImage="../../images/placeholder-refund.png" height="200" iClass="avatar" loadImage="{{item.avatar}}" width="180"></i-img>
+					<block wx:if="{{index==0}}">
+						<text class="name">团长</text>
+					</block>
+				</view>
+			</block>
+			<block wx:for="{{pin_info.need_count-pin_order_arr.length}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+				<view class="item">
+					<text class="iconfont icon-wenhao avatar"></text>
+				</view>
+			</block>
+		</view>
+		<block wx:if="{{pin_info.state==0}}">
+			<block wx:if="{{me_take_in==0}}" >
+				<view bindtap="openSku" class="btn">我要参团</view>
+			</block>
+			<block wx:elif="{{me_take_in==1}}">
+				<button class="btn" openType="share">邀请好友参团</button>
+			</block>
+		</block>
+		<block wx:if="{{pin_info.state==1&&is_me==1}}">
+			<block wx:if="{{order_type=='ignore'}}" >
+				<view bindtap="goLink" class="btn" data-link="/lionfish_comshop/moduleA/pin/index">查看更多拼团商品</view>
+			</block>
+			<block wx:else>
+				<view bindtap="goLink" class="btn" data-link="/lionfish_comshop/pages/order/order?id={{order_id}}">查看订单详情</view>
+			</block>
+		</block>
+		<block wx:if="{{pin_info.state==1&&is_me==0}}">
+			<view bindtap="goLink" class="btn" data-link="/lionfish_comshop/moduleA/pin/index">查看更多拼团商品</view>
+		</block>
+		<block wx:if="{{pin_info.state==2}}">
+			<view bindtap="goLink" class="btn" data-link="/lionfish_comshop/moduleA/pin/index">查看更多拼团商品</view>
+		</block>
+	</view>
+	<view bindtap="goLink" class="pinIntro bg-f" data-link="/lionfish_comshop/pages/user/rule?type=pintuan">
+		<view class="i-flex i-flex-spb pinIntro-top">
+			<view class="pinIntro-title">拼团玩法</view>
+			<view class="">查看规则<text class="iconfont icon-youjiantou"></text>
+			</view>
+		</view>
+		<view class="i-flex i-flex-spb pinIntro-bot">
+			<view class="rule-item">
+				<view class="step">1</view>
+				<view class="p">支付开团</view>
+				<view class="p">参团</view>
+			</view>
+			<view class="rule-item">
+				<view class="step">2</view>
+				<view class="p">邀请用户</view>
+				<view class="p">参团</view>
+			</view>
+			<view class="rule-item">
+				<view class="step">3</view>
+				<view class="p">拼团成功</view>
+				<view class="p">按时送达</view>
+			</view>
+			<view class="rule-item">
+				<view class="step">4</view>
+				<view class="p">逾期未成</view>
+				<view class="p">团退款</view>
+			</view>
+		</view>
+	</view>
+	<block wx:if="{{is_show_order_guess_like==1&&likeList.length}}">
+		<view class="guessLike">
+			<view class="guessLikeTitle">——猜你喜欢——</view>
+			<view class="bg-f">
+				<block wx:for="{{likeList}}" wx:key="actId" wx:for-item="item" wx:for-index="index" >
+					<i-spu class="item" reduction="{{reduction}}" spuItem="{{item}}"></i-spu>
+				</block>
+			</view>
+		</view>
+	</block>
+</view>
+<i-aside-btn showHome="true"></i-aside-btn>
+<view bindtap="closeSku" class="mask" hidden="{{!visible}}"></view>
+<view bind:cancel="close" class="sku-content" hidden="{{!visible}}" scrollUp="true">
+	<view class="sku-card">
+		<view bindtap="closeSku" class="close">
+			<image src="../../images/icon-sku-close.png"></image>
+		</view>
+		<view class="sku-header">
+			<image class="sku-img" src="{{cur_sku_arr.skuImage}}" style="width:80px;height:80px;"></image>
+			<view class="sku-desc">
+				<view class="sku-title">
+					<span>{{cur_sku_arr.spuName}}</span>
+				</view>
+				<view class="sku-price">
+					<block wx:if="{{order.buy_type=='pindan'}}">
+						<view class="sale-price">¥<span>{{cur_sku_arr.actPrice[0]}}</span>.{{cur_sku_arr.actPrice[1]}}						</view>
+					</block>
+					<block wx:if="{{order.buy_type=='pintuan'}}">
+						<view class="sale-price">¥<span>{{cur_sku_arr.pinprice[0]}}</span>.{{cur_sku_arr.pinprice[1]}}						</view>
+					</block>
+					<block wx:if="{{cur_sku_arr.marketPrice}}">
+						<view class="market-price">¥{{cur_sku_arr.marketPrice[0]}}.{{cur_sku_arr.marketPrice[1]}}</view>
+					</block>
+				</view>
+				<block wx:if="{{cur_sku_arr.spec}}">
+					<view class="sku-switch-on">已选择：{{cur_sku_arr.spec}}</view>
+				</block>
+			</view>
+		</view>
+		<block wx:for="{{skuList.list}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+			<view class="sku-spec">
+				<view class="title">{{item.name}}</view>
+				<view class="spec-list">
+					<block wx:for="{{item.option_value}}" wx:key="idx" wx:for-item="value" wx:for-index="idx" >
+						<span bindtap="selectSku" class="{{idx==sku[index].idx?'on':''}}" data-disabled="{{item.canBuyNum-value<0}}" data-idx="{{idx}}" data-type="{{index}}_{{idx}}_{{value.option_value_id}}_{{value.name}}">{{value.name}}</span>
+					</block>
+				</view>
+			</view>
+		</block>
+		<view class="sku-num-content">
+			<view class="title">数量</view>
+			<view class="i-class i-input-number i-input-number-size-{{size}}">
+				<view bindtap="setNum" class="i-input-number-minus {{value<=min?'i-input-number-disabled':''}}" data-type="decrease">
+					<image src="../../images/icon-input-reduce.png"></image>
+				</view>
+				<input bindblur="handleBlur" bindfocus="handleFocus" class="i-input-number-text {{min>=max?'i-input-number-disabled':''}}" disabled="true" type="number" value="{{sku_val}}"></input>
+				<view bindtap="setNum" class="i-input-number-plus {{value>=max?'i-input-number-disabled':''}}" data-type="add">					<image src="../../images/icon-input-add.png"></image>
+				</view>
+			</view>
+			<block wx:if="{{skuList[current].isLimit}}" >
+				<view class="msg">
+					<block wx:if="{{skuList[current].limitMemberNum>-1}}">						<span>每人限{{skuList[current].limitMemberNum}}单</span>
+					</block>
+					<block wx:if="{{skuList[current].limitOrderNum>-1}}">						<span>每单限{{skuList[current].limitOrderNum}}份</span>
+					</block>
+					<span></span>
+				</view>
+			</block>
+			<block wx:elif="{{(!skuList[current].isLimit&&skuList[current].canBuyNum-value<=10)&&skuList[current].canBuyNum-value>-1}}">				<view class="even-num">还可以购买 {{skuList[current].canBuyNum-value}} 件</view>
+			</block>
+		</view>
+		<form bindsubmit="gocarfrom" reportSubmit="true">
+			<button class="sku-confirm" disabled="{{cur_sku_arr.stock==0?true:false}}" formType="submit">
+				<view>{{cur_sku_arr.stock==0?'已抢光':'确定'}}</view>
+			</button>
+		</form>
+	</view>
+</view>
+<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" needAuth="{{needAuth&&showAuthModal}}" needPosition="true"></i-new-auth>
+<i-change-community bind:changeComunity="confrimChangeCommunity" bind:noChange="cancelChangeCommunity" canChange="{{hide_community_change_btn==0}}" cancelFn="true" changeCommunity="{{changeCommunity}}" community="{{community}}" groupInfo="{{groupInfo}}" visible="{{showChangeCommunity}}"></i-change-community>
+<i-vip-modal imgUrl="{{pop_vipmember_buyimage}}" visible="{{showVipModal}}"></i-vip-modal>

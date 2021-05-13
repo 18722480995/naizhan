@@ -1,0 +1,8 @@
+{
+    "component": true,
+    "usingComponents": {
+        "i-modal": "../modal/index",
+        "i-button": "../button/index",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "权益规则",
+    "usingComponents": {
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

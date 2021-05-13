@@ -1,0 +1,71 @@
+<view class="wrap gcs-box">
+	<block wx:if="{{status==0}}">
+		<view class="gcs-info card">
+			<form bindsubmit="formSubmit">
+				<view class="card-header">
+					<view class="title">{{commiss_diy_name}}会员申请</view>
+				</view>
+				<view class="card-body">
+					<block wx:for="{{commiss_diy_form}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+						<view class="info-item">
+							<view class="item-title">{{item.title}}</view>
+							<view class="item-content">
+								<block wx:if="{{item.type=='text'}}">
+									<input bindblur="iptBlur" bindfocus="iptFocus" data-name="ipt-{{index}}" name="ipt-{{index}}" placeholder="请输入{{item.title}}" type="{{item.type}}" value="{{item.value}}"></input>
+								</block>
+								<block wx:if="{{item.type=='textarea'}}">
+									<textarea autoHeight bindblur="iptBlur" bindfocus="iptFocus" data-name="ipt-{{index}}" name="ipt-{{index}}" placeholder="请输入{{item.title}}" value="{{item.value}}"></textarea>
+								</block>
+								<block wx:if="{{item.type=='checkbox'}}">
+									<checkbox-group bindchange="checkboxChange" data-idx="{{index}}">
+										<block wx:for="{{item.value}}" wx:key="idx" wx:for-item="check" wx:for-index="idx" >
+											<label class="checkbox">
+												<checkbox value="{{check.value}}"></checkbox>
+												<text style="padding-left: 14rpx;">{{check.text}}</text>
+											</label>
+										</block>
+									</checkbox-group>
+								</block>
+								<block wx:if="{{item.type=='radio'}}">
+									<radio-group bindchange="radioChange" class="radio-group" data-idx="{{index}}">
+										<block wx:for="{{item.value}}" wx:key="idx" wx:for-item="rds" wx:for-index="idx" >
+											<label class="radio">
+												<radio value="{{rds.value}}"></radio>
+												<text style="padding-left: 18rpx;">{{rds.text}}</text>
+											</label>
+										</block>
+									</radio-group>
+								</block>
+								<block wx:if="{{item.type=='select'}}">
+									<picker bindchange="bindPickerChange" data-idx="{{index}}" range="{{item.value}}" rangeKey="value" value="{{formArr[index][index]}}">
+										<view class="picker">{{item.value[formArr[index].index].text}}</view>
+									</picker>
+								</block>
+							</view>
+						</view>
+						<view class="bot-line {{currentFocus=='ipt-'+index?'focus':''}}"></view>
+					</block>
+				</view>
+				<view class="edit-btn">
+					<button formType="submit" loading="{{btnLoading}}">保存</button>
+				</view>
+			</form>
+		</view>
+	</block>
+	<block wx:if="{{status==1}}">
+		<view class="status">
+			<image class="status-img" mode="widthFix" src="../../images/auditing.png"></image>
+			<view class="p">恭喜您申请成功！</view>
+			<view class="p">平台将尽快审核！</view>
+			<button bindtap="goLink" class="status-btn" data-url="/lionfish_comshop/pages/user/me" type="warn">确定</button>
+		</view>
+	</block>
+	<block wx:if="{{status==2}}">
+		<view class="status">
+			<image class="status-img" mode="widthFix" src="../../images/auditSuccess.png"></image>
+			<view class="p">您已经是{{commiss_diy_name}}会员</view>
+			<button bindtap="goLink" class="status-btn" data-url="/lionfish_comshop/distributionCenter/pages/me" type="warn">进入{{commiss_diy_name}}</button>
+		</view>
+	</block>
+</view>
+<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" needAuth="{{needAuth&&showAuthModal}}"></i-new-auth>

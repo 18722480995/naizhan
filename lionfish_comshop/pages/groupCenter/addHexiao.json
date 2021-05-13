@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "添加核销人员",
+    "usingComponents": {
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

@@ -1,0 +1,33 @@
+
+<view class="address-preview">
+	<mp-navigation-bar back="true" color="#ffffff" extClass="mode__navigation-bar"></mp-navigation-bar>
+	<mp-msg title="你填写的收货地址" type="custom">
+		<view slot="desc">
+			<view class="msg_preview">
+				<view class="msg_preview_item">
+					<view class="msg_preview_item__head">收件人</view>
+					<view class="msg_preview_item__body">{{receive_name}}</view>
+				</view>
+				<view class="msg_preview_item">
+					<view class="msg_preview_item__head">联系电话</view>
+					<view class="msg_preview_item__body">{{phone}}</view>
+				</view>
+				<view class="msg_preview_item">
+					<view class="msg_preview_item__head">地址</view>
+					<view class="msg_preview_item__body">{{address}}</view>
+				</view>
+				<view class="msg_preview_item">
+					<view class="msg_preview_item__head">详细地址</view>
+					<view class="msg_preview_item__body">{{district}}</view>
+				</view>
+				<view class="msg_preview_item">
+					<view class="msg_preview_item__head">邮政编码</view>
+					<view class="msg_preview_item__body">{{postcode}}</view>
+				</view>
+			</view>
+		</view>
+		<view slot="handle">
+			<view bindtap="modifyLotteryAddress" class="weui-btn weui-btn_default">修改地址</view>
+		</view>
+	</mp-msg>
+</view>

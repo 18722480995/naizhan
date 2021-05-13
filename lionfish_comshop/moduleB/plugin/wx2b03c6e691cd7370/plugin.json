@@ -1,0 +1,15 @@
+{
+    "publicComponents": {
+        "subscribe": "components/subscribe/subscribe"
+    },
+    "pages": {
+        "live-player-plugin": "pages/live-player-plugin",
+        "address-preview": "pages/address-preview/address-preview",
+        "report-comments": "pages/report-comments/report-comments",
+        "report-room": "pages/report-room/report-room",
+        "report-room-detail": "pages/report-room/report-room-detail",
+        "report-status": "pages/report-status/report-status",
+        "test-functional-page": "pages/test-functional-page/test-functional-page"
+    },
+    "main": "interface/getLiveStatus.js"
+}

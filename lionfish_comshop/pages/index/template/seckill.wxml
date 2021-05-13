@@ -1,0 +1,55 @@
+<!--   seckill    -->
+<template name="seckill">
+  <view class="seckill">
+    <view class="seckill-head i-flex" style="background:{{seckill_bg_color}}">
+      <view class="tit">
+        <view>整点</view>
+        <view>秒杀</view>
+      </view>
+      <view class="i-flex-item i-flex">
+        <block wx:for="{{scekillTimeList}}" wx:key="id" wx:for-item="item" wx:for-index="index">
+          <view bindtap="changeSecKillTime" class="seckill-head-item {{secKillActiveIdx==index?'active':''}}" data-idx="{{index}}" data-time="{{item.seckillTime}}">
+            <view class="time">{{item.timeStr}}</view>
+            <view class="desc" style="{{secKillActiveIdx==index?'color:'+seckill_bg_color:''}}">{{item.desc}}</view>
+          </view>
+        </block>
+      </view>
+      <view bindtap="goLink" class="more" data-link="/lionfish_comshop/moduleA/seckill/list?time={{scekillTimeList[secKillActiveIdx].seckillTime}}">更多
+        <text class="iconfont icon-gengduo"></text>
+      </view>
+    </view>
+
+
+    <block wx:if="{{secRushList.length}}">
+      <view class="seckill-list">
+
+        <scroll-view scroll-x style="white-space: nowrap;">
+          <navigator url="/lionfish_comshop/pages/goods/goodsDetail?id={{item.actId}}" class="secRushList" bindtap="openSku"  wx:for="{{secRushList}}" wx:key="id" wx:for-item="item" wx:for-index="index">
+            <image class="seckill-list-img" src="{{item.skuImage}}"></image>
+            <view class="secRushListtitle">{{item.spuName}}</view>
+            <view class="market-price">
+              <text class="span">¥{{item.actPrice[0]}}</text>.
+              <text class="market-price">{{item.actPrice[1]}}</text>
+            </view>
+          </navigator>
+        </scroll-view>
+
+
+        <!-- <swiper circular indicatorDots="false" bindchange="scrollSecKillGoodsChange" class="sec-swiper-content" duration="400">
+          <block wx:for="{{secRushList}}" wx:key="id" wx:for-item="item" wx:for-index="index">
+            <swiper-item>
+              <i-seckill-spu begin="{{scekillTimeList[currentTab].state==2?1:0}}" needAuth="{{needAuth}}" spuItem="{{item}}"></i-seckill-spu>
+            </swiper-item>
+          </block>
+        </swiper> -->
+
+        <!-- <block wx:if="{{secRushList.length}}">
+          <text class="current">{{secKillGoodsIndex}}/{{secRushList.length}}</text>
+        </block> -->
+
+      </view>
+    </block>
+
+
+  </view>
+</template>

@@ -1,0 +1,66 @@
+<i-auth bind:authSuccess="authSuccess" needAuth="{{!is_login}}">
+	<view class="tabs">
+		<view class="tabs-bar">
+			<view class="tabs-nav--container">
+				<view class="tabs-nav--wrap">
+					<view class="tabs-nav tabs-nav--animated">
+						<view class="tabs-link-bar tabs-link-bar-animated"></view>
+						<view bindtap="tabchange" class="tabs-tab J-tabs-tab-key {{tab_index==1?'tabs-tab-active':''}}" data-index="1">未使用</view>
+						<view bindtap="tabchange" class="tabs-tab J-tabs-tab-key {{tab_index==2?'tabs-tab-active':''}} " data-index="2">已使用/已过期</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="list">
+			<block wx:for="{{quan}}" wx:key="key" wx:for-item="item" wx:for-index="index" >
+				<block wx:if="{{quan.length}}">
+					<view class="coupon {{item.is_over==1?'expired':''}} {{item.is_use==1?'used':''}}">
+						<view class="header">
+							<view class="price">
+								<view class="reduce-price">{{item.credit}}<text>元</text>
+								</view>
+								<view class="reduce-desc">{{item.limit_money>0.01?'满'+item.limit_money+'元可用':'不限制'}}</view>
+							</view>
+							<view class="info">
+								<view class="reduce-title">
+									<block wx:if="{{item.tag}}">
+										<text class="reduce-type">{{item.tag}}</text>
+									</block>{{item.voucher_title}}								</view>
+								<block wx:if="{{item.is_limit_goods_buy==0}}" >
+									<view class="reduce-area">使用范围：所有商品</view>
+								</block>
+								<block wx:elif="{{item.is_limit_goods_buy==1}}">
+									<view class="reduce-area">使用范围：指定商品</view>
+								</block>
+								<block wx:elif="{{item.is_limit_goods_buy==2}}">
+									<view class="reduce-area">使用范围：指定分类</view>
+								</block>
+							</view>
+							<view class="status">
+								<block wx:if="{{item.is_over==0&&item.is_use==0}}">
+									<view bindtap="goUse" class="go-shop" data-idx="{{index}}">去使用</view>
+								</block>
+								<block wx:if="{{item.is_over==1&&item.is_use==0}}">
+									<image src="../../images/expired.png"></image>
+								</block>
+								<block wx:if="{{item.is_use==1}}">
+									<image src="../../images/used.png"></image>
+								</block>
+							</view>
+						</view>
+						<view class="footer">有效期：{{item.begin_time}}~{{item.end_time}}</view>
+					</view>
+				</block>
+			</block>
+			<block wx:if="{{quan.length==0&&isHideLoadMore}}">
+				<view class="empty-wrap">
+					<image class="empty-img" src="../../images/noData.png"></image>
+					<view class="empty-txt">暂无任何记录～</view>
+				</view>
+			</block>
+			<block wx:if="{{!isHideLoadMore}}">
+				<i-load-more iClass="loadMore" loading="{{!isHideLoadMore}}" tip="{{loadText}}"></i-load-more>
+			</block>
+		</view>
+	</view>
+</i-auth>

@@ -1,0 +1,9 @@
+{
+    "component": true,
+    "componentGenerics": {
+        "masonry-item": true
+    },
+    "usingComponents": {
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

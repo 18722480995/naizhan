@@ -1,0 +1,10 @@
+{
+    "navigationBarTitleText": "搜索",
+    "usingComponents": {
+        "i-auth": "../../components/auth/index",
+        "i-load-more": "../../components/load-more/index",
+        "i-img": "../../components/img/index",
+        "i-type-item": "./type-item",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

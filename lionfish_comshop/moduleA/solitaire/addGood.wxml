@@ -1,0 +1,67 @@
+<view class="wrap">
+	<view class="fixed-top">
+		<view class="search-bar">
+			<view class="search-box">
+				<input bindconfirm="goResult" class="ipt" confirmType="搜索" placeholder="搜索活动" type="text"></input>
+				<view class="search-icon">
+					<text class="iconfont icon-sousuo1"></text>
+				</view>
+			</view>
+		</view>
+		<view class="nav-bar">
+			<view class="nav-bar-inner">
+				<block wx:for="{{tabs}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+					<view class="i-flex-item">
+						<text bindtap="changeTabs" class="nav-bar-item {{currentIdx==item.id?'current':''}}" data-type="{{item.id}}">{{item.name}}</text>
+					</view>
+				</block>
+			</view>
+		</view>
+	</view>
+	<view class="list bg-f">
+		<block wx:for="{{list}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+			<block wx:if="{{list.length}}">
+				<view class="item i-flex i-aic">
+					<label class="check-box-content">
+						<checkbox-group bindchange="checkboxChange" data-index="{{index}}" data-type="item">
+							<view class="check-box">
+								<block wx:if="{{item.checked}}" >
+									<image class="checkbox-checked" src="../../images/checkbox-checked.png"></image>
+								</block>
+								<block wx:else>
+									<image class="checkbox-disabled" src="../../images/checkbox-disabled.png"></image>
+								</block>
+								<checkbox hidden checked="{{item.checked}}" value="{{index}}"></checkbox>
+							</view>
+						</checkbox-group>
+					</label>
+					<view class="i-flex-item">
+						<i-solitaire-good bind:onSelect="selectGoods" spuItem="{{item}}" type="1"></i-solitaire-good>
+					</view>
+				</view>
+			</block>
+		</block>
+		<block wx:if="{{!noMore}}">
+			<i-load-more iClass="loadMore" loading="{{loadMore}}" tip="{{loadText}}"></i-load-more>
+		</block>
+	</view>
+	<view class="bottom-bar {{isIpx?'pb20':''}}">
+		<label class="check-box-content">
+			<checkbox-group bindchange="checkboxChange" data-type="all">
+				<view class="check-box">
+					<block wx:if="{{checkedAll&&list.length>0}}" >						<image class="checkbox-checked" src="../../images/checkbox-checked.png"></image>
+					</block>
+					<block wx:else>
+						<image class="checkbox-disabled" src="../../images/checkbox-disabled.png"></image>
+					</block>
+					<checkbox hidden checked="{{checkedAll&&list.length>0}}" value="{{index}}"></checkbox>
+				</view>
+			</checkbox-group>全选		</label>
+		<view class="flex">
+			<view class="total">合计：<span>{{checkedCount}}条</span>
+			</view>
+			<label class="btn">确定<button hidden bindtap="selectGoods" data-type="1"></button>
+			</label>
+		</view>
+	</view>
+</view>

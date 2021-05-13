@@ -1,0 +1,21 @@
+<view class="wrap">
+	<block wx:if="{{list.length}}" >
+		<view class="list">
+			<block wx:for="{{list}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+				<view class="list-item i-flex i-flex-alc">
+					<view class="list-item-l i-flex-item">
+						<view class="type">推广订单收益</view>
+						<view class="time">2019-01-06 12:26:36</view>
+					</view>
+					<view class="list-item-r">+0.3</view>
+				</view>
+			</block>
+			<block wx:if="{{!isHideLoadMore}}">
+				<i-loadMore tip="{{tip}}"></i-loadMore>
+			</block>
+		</view>
+	</block>
+	<block wx:else>
+		<view class="none-list">暂无明细</view>
+	</block>
+</view>

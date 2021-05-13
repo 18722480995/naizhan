@@ -1,0 +1,4 @@
+<import  src="/lionfish_comshop/wxParse/wxParse.wxml"  />
+<view class="wrap">
+	<template  data="{{wxParseData:article.nodes}}" is="wxParse" />
+</view>

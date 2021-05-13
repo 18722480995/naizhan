@@ -1,0 +1,4 @@
+<block wx:if="{{!html[0].name&&!html[0].type}}">
+	<slot></slot>
+</block>
+<trees animation="{{showAnimation}}" bindtap="_tap" bindtouchmove="_touchmove" bindtouchstart="_touchstart" controls="{{controls}}" id="root" nodes="{{html[0].name||html[0].type?html:[null]}}" style="{{showWithAnimation?'opacity:0':''+(selectable?';user-select:text;-webkit-user-select:text':'')}}"></trees>

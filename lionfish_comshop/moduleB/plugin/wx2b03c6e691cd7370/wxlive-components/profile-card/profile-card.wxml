@@ -1,0 +1,20 @@
+
+<view class="{{from==='pusher'&&status==='recording'?'live-player-navigation-header live-player__profile-card':'live-player-navigation-header live-player__profile-card live-player__profile-card_without-btn'}}">
+	<view class="live-player-navigation-header live-player__profile-card__inner">
+		<image bindtap="clickProfileModal" class="live-player-navigation-header-avatar live-player__profile-card__avatar" src="{{weappImg}}"></image>
+		<view class="live-player-navigation-header-content live-player__profile-card__body">
+			<view bindtap="clickProfileModal" class="live-player-navigation-header-content-name live-player__profile-card__title" style="max-width: {{navigationTitleWidth}}">{{weappName}}</view>
+			<block wx:if="{{from==='player'}}">
+				<view class="live-player-navigation-header-content-audience live-player__profile-card__desc">
+					<text class="live-player__profile-card__desc__item">{{liveStatSimulateWatch||0}} 观看</text>
+				</view>
+			</block>
+			<block wx:if="{{from==='pusher'&&status==='recording'}}">
+				<view class="live-player-navigation-header-content-audience live-player__profile-card__desc live-player__profile-card__desc-count-time">{{watchTimeStr}}</view>
+			</block>
+		</view>
+		<block wx:if="{{from==='pusher'&&status==='recording'}}">
+			<view bindtap="onClickEndLive" class="live-player__profile-card__end {{endBtnDisabled?'live-player__profile-card__end__disabled':''}}">结束</view>
+		</block>
+	</view>
+</view>

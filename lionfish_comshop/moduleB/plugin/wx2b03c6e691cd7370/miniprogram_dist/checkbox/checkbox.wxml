@@ -1,0 +1,23 @@
+
+<mp-cell bindtap="checkedChange" extClass="weui-check__label {{outerClass}} {{extClass}}" footerClass="{{!multi?'weui-check__ft_in-radio':''}}" iconClass="{{multi?'weui-check__hd_in-checkbox':''}}">
+	<block wx:if="{{multi}}">
+		<view slot="icon">
+			<checkbox checked="{{checked}}" class="weui-check" color="{{color}}" disabled="{{disabled}}" value="{{value}}"></checkbox>
+			<block wx:if="{{!checked}}" >
+				<icon class="weui-icon-checkbox_circle" size="23" type="circle"></icon>
+			</block>
+			<block wx:else>
+				<icon class="weui-icon-checkbox_success" size="23" type="success"></icon>
+			</block>
+		</view>
+	</block>
+	<view>{{label}}</view>
+	<block wx:if="{{!multi}}">
+		<view slot="footer">
+			<radio checked="{{checked}}" class="weui-check" color="{{color}}" disabled="{{disabled}}" value="{{value}}"></radio>
+			<block wx:if="{{checked}}">
+				<icon class="weui-icon-radio" size="16" type="success_no_circle"></icon>
+			</block>
+		</view>
+	</block>
+</mp-cell>

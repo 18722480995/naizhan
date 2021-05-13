@@ -1,0 +1,26 @@
+<view bindtap="chooseCommunity" class="community-item i-class" data-val="{{item}}">
+	<view class="group-img">
+		<block wx:if="{{item.headImg||item.disUserHeadImg}}" >
+			<image class="group-head" src="{{item.headImg||item.disUserHeadImg}}"></image>
+		</block>
+		<block wx:else>
+			<image class="group-head" src="../../images/head-bitmap.png"></image>
+		</block>
+		<block wx:if="{{item.rest==1}}">
+			<text class="rest">休息中</text>
+		</block>
+	</view>
+	<view class="item-center">
+		<view class="community-title">
+			<text class="span">{{item.communityName}}</text>
+			<block wx:if="{{!isOld&&item.distance}}">
+				<text class="em">距离{{item.distance}}</text>
+			</block>
+		</view>
+		<view class="group-master">{{groupInfo.owner_name}}：{{item.realName||item.disUserName}}<image class="right-arrow" src="../../images/community-right-arrow.png"></image>
+		</view>
+		<block wx:if="{{hiddenDetails==0}}">
+			<view class="community-address">{{item.fullAddress||item.communityAddress}}</view>
+		</block>
+	</view>
+</view>

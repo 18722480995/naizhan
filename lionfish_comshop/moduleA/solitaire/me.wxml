@@ -1,0 +1,33 @@
+<view>
+	<block wx:if="{{list.length}}">
+		<view>
+			<block wx:for="{{list}}" wx:key="index" wx:for-item="solitaire" wx:for-index="index" >
+				<view bindtap="goDetails" class="p30 bg-f mb10" data-id="{{solitaire.id}}">
+					<view class="fsz-30 mb10 i-flex i-flex-spb">
+						<view class="text-overflow1 weight i-flex-item">{{solitaire.solitaire_name}}</view>
+						<view class="red fsz-24">{{solitaire.state_str}}</view>
+					</view>
+					<block wx:if="{{solitaire.images_list.length}}">
+						<view class="img-list i-flex i-flex-wrap">
+							<block wx:for="{{solitaire.images_list}}" wx:key="id" wx:for-item="item" wx:for-index="idx" >
+								<image lazyLoad catchtap="showImgPrev" class="img-item" data-idx="{{idx}}" data-sidx="{{index}}" mode="aspectFill" src="{{item}}"></image>
+							</block>
+						</view>
+					</block>
+					<view class="fsz-24 text-gray">接龙时间：{{solitaire.begin_time}}~{{solitaire.end_time}}</view>
+				</view>
+			</block>
+			<block wx:if="{{!noMore}}">
+				<i-load-more iClass="loadMore" loading="{{loadMore}}" tip="{{loadText}}"></i-load-more>
+			</block>
+		</view>
+	</block>
+	<block wx:if="{{noData}}">
+		<i-empty>暂无接龙~</i-empty>
+	</block>
+</view>
+<navigator class="pub i-flex-col i-flex-alc" url="/lionfish_comshop/moduleA/solitaire/index">
+	<text class="iconfont icon-jielongguanli"></text>
+	<text class="pub-tit">去接龙</text>
+</navigator>
+<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" needAuth="{{needAuth&&showAuthModal}}" needPosition="true"></i-new-auth>

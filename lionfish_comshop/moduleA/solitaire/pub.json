@@ -1,0 +1,10 @@
+{
+    "navigationBarTitleText": "发布群接龙",
+    "usingComponents": {
+        "DateTimePicker": "../../components/datetimepicker/datetimepicker",
+        "chooseImage": "../../components/chooseImage/index",
+        "i-solitaire-good": "../components/solitaireGood",
+        "i-solitaire-head": "../components/solitaireHead",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

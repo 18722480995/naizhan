@@ -1,0 +1,6 @@
+<view class="container">
+	<masonry bind:needAuth="noLogin" id="masonry" intervalWidth="20rpx" generic:masonry-item="img-box"></masonry>
+</view>
+<block wx:if="{{showEmpty}}">
+	<i-empty>暂无结果~</i-empty>
+</block>

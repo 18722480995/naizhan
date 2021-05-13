@@ -1,0 +1,46 @@
+<view>
+	<i-solitaire-head class="mb10" community="{{head_data}}" showShare="false"></i-solitaire-head>
+	<block wx:if="{{list.length}}">
+		<view class="bg-f">
+			<block wx:for="{{list}}" wx:key="id" wx:for-item="solitaire" wx:for-index="index" >
+				<view bindtap="goDetails" class="p30 border-bottom" data-id="{{solitaire.id}}">
+					<view class="fsz-30 mb5 i-flex i-flex-spb">
+						<view class="text-overflow1 weight i-flex-item">{{solitaire.solitaire_name}}</view>
+						<view class="red fsz-24">{{solitaire.state_str}}</view>
+					</view>
+					<view class="fsz-24 text-gray mb10">接龙时间：{{solitaire.begin_time}}~{{solitaire.end_time}}</view>
+					<block wx:if="{{solitaire.images_list.length}}">
+						<view class="img-list i-flex i-flex-wrap">
+							<block wx:for="{{solitaire.images_list}}" wx:key="id" wx:for-item="item" wx:for-index="idx" >
+								<image lazyLoad catchtap="showImgPrev" class="img-item" data-idx="{{idx}}" data-sidx="{{index}}" mode="aspectFill" src="{{item}}"></image>
+							</block>
+						</view>
+					</block>
+					<block wx:if="{{solitaire.state>0}}">						<view class="i-flex i-flex-spb">
+							<view class="member-list">
+								<block wx:for="{{solitaire.invite_list}}" wx:key="id" wx:for-item="memItem" wx:for-index="idx" >
+									<image class="avatar" src="{{memItem.avatar}}"></image>
+								</block>
+							</view>
+							<view class="fsz-24 text-gray">
+								<block wx:if="{{solitaire.invite_count>0}}">{{solitaire.invite_count}}次浏览</block>
+								<block wx:if="{{solitaire.order_count>0}}">，{{solitaire.order_count}}次接龙</block>
+							</view>
+						</view>
+					</block>
+				</view>
+			</block>
+			<block wx:if="{{!noMore}}">
+				<i-load-more iClass="loadMore" loading="{{loadMore}}" tip="{{loadText}}"></i-load-more>
+			</block>
+		</view>
+	</block>
+	<block wx:if="{{noData}}">
+		<i-empty>暂无接龙~</i-empty>
+	</block>
+</view>
+<block wx:if="{{showTabbar}}">
+	<i-tabbar cartNum="{{cartNum}}" class="tabbar {{isIpx?'pb20':''}}" currentIdx="2"></i-tabbar>
+</block>
+<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" needAuth="{{needAuth&&showAuthModal}}" needPosition="true"></i-new-auth>
+<i-change-community bind:changeComunity="confrimChangeCommunity" bind:noChange="cancelChangeCommunity" canChange="{{hide_community_change_btn==0}}" cancelFn="true" changeCommunity="{{changeCommunity}}" community="{{currentCommunity}}" groupInfo="{{groupInfo}}" visible="{{showChangeCommunity}}"></i-change-community>

@@ -1,0 +1,10 @@
+<import src="../../wxParse/wxParse.wxml"></import>
+<view class="article">
+	<view class="wxParse">
+		<!-- <parser html="{{article}}"></parser> -->
+
+		<template is="wxParse" data="{{wxParseData:instructions.nodes}}"></template>
+     <!-- <rich-text nodes="{{article}}" ></rich-text> -->
+
+	</view>
+</view>

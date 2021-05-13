@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "",
+    "usingComponents": {
+        "i-fixed-bottom": "../../components/fixed-bottom/index",
+        "i-vip-modal": "/lionfish_comshop/components/vipModal/index"
+    }
+}

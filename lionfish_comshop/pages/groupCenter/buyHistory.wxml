@@ -1,0 +1,74 @@
+<view>
+	<view class="buyRecord">
+		<view class="nav">
+			<block wx:for="{{navList}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+				<view bindtap="switchNav" class="orderList_item {{currentTab==item.status?'on':''}}" data-current="{{item.status}}">
+					<view>{{item.name}}</view>
+					<block wx:if="{{currentTab==item.status}}">
+						<view class="line"></view>
+					</block>
+				</view>
+			</block>
+		</view>
+		<swiper bindchange="bindChange" class="swiper-box" current="{{currentTab}}" duration="300" style="height:{{containerHeight}}px">
+			<swiper-item>
+				<scroll-view scrollY class="order-scroll-view" scrollTop="{{scrollTop}}" style="height:{{containerHeight}}px">
+					<block wx:if="{{recordList.length===0}}" >
+						<view class="noRecordCon">
+							<image class="noRecordImg" src="../../images/noRecord.png"></image>
+							<view class="noRecord">暂时还没有记录～</view>
+						</view>
+					</block>
+					<block wx:else>
+						<view class="record">
+							<block wx:for="{{recordList}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+								<view class="recordList">
+									<view class="buyer">
+										<block wx:if="{{!item.memberHeadPic}}" >
+											<image class="memAvatarUrl" src="../../images/head-bitmap.png"></image>
+										</block>
+										<block wx:else>
+											<image class="memAvatarUrl" src="{{item.memberHeadPic}}"></image>
+										</block>
+										<span class="receiverName">{{item.receiverName}}买了<text class="buyNum">{{item.orderNum}}</text>份										</span>
+										<span>{{item.createTime}}</span>
+									</view>
+								</view>
+							</block>
+						</view>
+						<i-load-more loading="{{LoadingComplete}}" tip="{{loadText}}"></i-load-more>
+					</block>
+				</scroll-view>
+			</swiper-item>
+			<swiper-item>
+				<scroll-view scrollY class="order-scroll-view" scrollTop="{{scrollTop}}" style="height:{{containerHeight}}px">
+					<block wx:if="{{refundList.length===0}}" >
+						<view class="noRecordCon">
+							<image class="noRecordImg" src="../../images/noRecord.png"></image>
+							<view class="noRecord">暂时还没有记录～</view>
+						</view>
+					</block>
+					<block wx:else>
+						<view class="record">
+							<block wx:for="{{refundList}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+								<view class="recordList">
+									<view class="buyer">
+										<block wx:if="{{!item.userAvatar}}" >
+											<image class="memAvatarUrl" src="../../images/head-bitmap.png"></image>
+										</block>
+										<block wx:else>
+											<image class="memAvatarUrl" src="{{item.userAvatar}}"></image>
+										</block>
+										<span class="receiverName">{{item.orderUserName}}退了<text class="buyNum">{{item.returnOrderCount}}</text>份										</span>
+										<span>{{item.createTime}}</span>
+									</view>
+								</view>
+							</block>
+						</view>
+						<i-load-more loading="{{LoadingComplete}}" tip="{{loadText}}"></i-load-more>
+					</block>
+				</scroll-view>
+			</swiper-item>
+		</swiper>
+	</view>
+</view>

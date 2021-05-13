@@ -1,0 +1,53 @@
+
+<view class="{{from==='player'?'end-block end-block__player':'end-block end-block__pusher'}}">
+	<view class="end-block__inner">
+		<view class="end-block__head">
+			<view class="end-block__title">直播已结束</view>
+			<view class="end-block_desc">直播时长 {{liveDuration}}</view>
+		</view>
+		<block wx:if="{{from==='player'}}">
+			<view class="end-block__body">
+				<view class="end-block__item">
+					<view class="end-block__item__main">{{liveStatSimulateWatch||0}}</view>
+					<view class="end-block__item__desc">观看</view>
+				</view>
+				<view class="end-block__item">
+					<view class="end-block__item__main">{{liveStat.comment_pv||0}}</view>
+					<view class="end-block__item__desc">评论</view>
+				</view>
+				<view class="end-block__item">
+					<view class="end-block__item__main">{{liveStatSimulateLike||0}}</view>
+					<view class="end-block__item__desc">赞</view>
+				</view>
+			</view>
+		</block>
+		<block wx:if="{{from==='pusher'}}">
+			<view class="end-block__body end-block__body__pusher">
+				<view class="end-block__body__pusher__head">
+					<view class="end-block__item">
+						<view class="end-block__item__main">{{liveStat.watch_pv||0}}</view>
+						<view class="end-block__item__desc">观看</view>
+					</view>
+					<view class="end-block__item">
+						<view class="end-block__item__main">{{liveStat.click_pv||0}}</view>
+						<view class="end-block__item__desc">商品点击</view>
+					</view>
+				</view>
+				<view class="end-block__body__pusher__foot">
+					<view class="end-block__item">
+						<view class="end-block__item__main">{{liveStat.share_pv||0}}</view>
+						<view class="end-block__item__desc">分享</view>
+					</view>
+					<view class="end-block__item">
+						<view class="end-block__item__main">{{liveStat.comment_pv||0}}</view>
+						<view class="end-block__item__desc">评论</view>
+					</view>
+					<view class="end-block__item">
+						<view class="end-block__item__main">{{liveStat.like||0}}</view>
+						<view class="end-block__item__desc">赞</view>
+					</view>
+				</view>
+			</view>
+		</block>
+	</view>
+</view>

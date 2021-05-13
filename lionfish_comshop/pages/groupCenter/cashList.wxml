@@ -1,0 +1,38 @@
+<view>
+	<view class="cash-list">
+		<block wx:for="{{order}}" wx:key="id" wx:for-item="item" wx:for-index="index" >
+			<view class="list-item">
+				<view class="title">
+					<text>提现单号（{{item.id}}）</text>
+				</view>
+				<view class="main">
+					<view class="left">
+						<view class="per">
+							<text>提现状态：</text>
+							<block wx:if="{{item.state==1}}">
+								<text>成功</text>
+							</block>
+							<block wx:if="{{item.state==0}}">
+								<text>审核中</text>
+							</block>
+							<block wx:if="{{item.state==2}}">
+								<text>拒绝</text>
+							</block>
+						</view>
+						<view class="per">
+							<text>提现金额：</text>
+							<text>￥{{item.money}}</text>
+						</view>
+						<view class="per">
+							<text>申请日期：</text>
+							<text>{{item.addtime}}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+		</block>
+		<block wx:if="{{!isHideLoadMore}}">
+			<i-loadMore tip="{{tip}}"></i-loadMore>
+		</block>
+	</view>
+</view>

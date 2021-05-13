@@ -1,0 +1,33 @@
+<view>
+	<view class="section">
+		<view class="wxParse">
+			<!-- <parser html="{{article}}"></parser> -->
+      <rich-text nodes="{{article}}"></rich-text>
+		</view>
+	</view>
+	<view class="fixed-bottom">
+		<block wx:if="{{((comsissStatus!=0&&comsissStatus!=1)&&comsissStatus!=3)&&comsissStatus!=6}}">
+			<view class="tip">
+				<block wx:if="{{comsissStatus==2}}">
+					<view>
+						<block wx:if="{{share_member_count!=0}}">
+							<text>再</text>
+						</block>分享<text class="tot">{{need_num_update}}</text>位新粉丝可升级为{{commiss_diy_name}}					</view>
+				</block>
+				<block wx:if="{{comsissStatus==2}}">
+					<view bindtap="goNext" class="btn" data-type="share">立即分享></view>
+				</block>
+			</view>
+		</block>
+		<block wx:if="{{comsissStatus==1}}" >
+			<view bindtap="goNext" class="apply-btn" data-type="commiss">进入{{commiss_diy_name}}</view>
+		</block>
+		<block wx:elif="{{canApply}}">
+			<view bindtap="subCommis" class="apply-btn">点击申请</view>
+		</block>
+		<block wx:else>
+			<view class="apply-btn disabled">点击申请</view>
+		</block>
+	</view>
+</view>
+<i-new-auth bind:authSuccess="authSuccess" bind:cancel="authModal" needAuth="{{needAuth&&showAuthModal}}"></i-new-auth>

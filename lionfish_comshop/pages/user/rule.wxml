@@ -1,0 +1,6 @@
+<view class="article">
+	<view class="wxParse">
+		<!-- <parser html="{{article}}"></parser> -->
+    <rich-text nodes="{{article}}"></rich-text>
+	</view>
+</view>

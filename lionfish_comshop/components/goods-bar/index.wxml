@@ -1,0 +1,45 @@
+<i-fixed-bottom>
+	<view class="goods-bottom-bar">
+		<view class="leftBtn">
+			<navigator hoverClass="none" openType="switchTab" url="/lionfish_comshop/pages/index/index">
+				<view class="bar-item back-to-index">
+					<image class="icon" src="../../images/icon-tab-index.png"></image>回首页				</view>
+			</navigator>
+			<navigator hoverClass="none" openType="switchTab" url="/lionfish_comshop/pages/order/shopCart">
+				<view class="bar-item shop-cart">
+					<view class="icon">
+						<image class="img" src="../../images/icon-tab-shop.png"></image>
+						<block wx:if="{{cartNum}}">
+							<view class="cart-num">{{cartNum}}</view>
+						</block>
+					</view>购物车				</view>
+			</navigator>
+		</view>
+		<block wx:if="{{goodsStatus==1}}" >
+			<view class="goodsStatus">已抢光</view>
+		</block>
+		<block wx:elif="{{goodsStatus==2}}">
+			<view class="goodsStatus">团购已结束</view>
+		</block>
+		<block wx:elif="{{goodsStatus==3}}">
+			<view class="goodsStatus">已下架</view>
+		</block>
+		<block wx:elif="{{goodsStatus==4}}">
+			<view class="goodsStatus">即将开抢</view>
+		</block>
+		<block wx:else>
+			<view class="gobuy">
+				<form bindsubmit="addToCart" reportSubmit="true">
+					<view class="bar-item add-to-cart">加入购物车</view>
+					<button class="btn" formType="submit"></button>
+				</form>
+				<form bindsubmit="submit" reportSubmit="true">
+					<button hidden formType="submit" id="formId"></button>
+				</form>
+				<label class="balanceBtn" for="formId">
+					<view bindtap="balance" class="bar-item balance">立即购买</view>
+				</label>
+			</view>
+		</block>
+	</view>
+</i-fixed-bottom>
